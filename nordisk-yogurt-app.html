@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<title>NORÐISK — Greek Yogurt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow: hidden; }
+  body {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #EAEFF3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+  }
+  #root {
+    width: 100%;
+    max-width: 480px;
+    height: 100vh;
+    height: 100dvh;
+    background: #FAFBFD;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(27,58,75,0.12);
+  }
+  @media (min-width: 481px) {
+    #root {
+      height: 92vh;
+      border-radius: 24px;
+      border: 1px solid #dde3ea;
+    }
+  }
+
+  /* Animations */
+  .screen-fade-enter { opacity: 0; transform: translateY(12px); }
+  .screen-fade-active { opacity: 1; transform: translateY(0); transition: opacity 0.28s ease, transform 0.28s ease; }
+  .screen-fade-exit { opacity: 1; transform: translateY(0); }
+  .screen-fade-exit-active { opacity: 0; transform: translateY(12px); transition: opacity 0.22s ease, transform 0.22s ease; }
+
+  .product-card { transition: transform 0.22s ease, box-shadow 0.22s ease; cursor: pointer; }
+  .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(27,58,75,0.12); }
+  .product-card:active { transform: scale(0.97); }
+
+  .topping-chip { transition: all 0.18s ease; cursor: pointer; user-select: none; }
+  .topping-chip:active { transform: scale(0.96); }
+
+  .size-btn { transition: all 0.18s ease; cursor: pointer; }
+  .size-btn:active { transform: scale(0.95); }
+
+  .cart-drawer { transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1); }
+  .cart-overlay { transition: opacity 0.3s ease; }
+
+  @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+  .cart-item-enter { animation: slideIn 0.3s ease forwards; }
+
+  @keyframes flyToCart { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.6) translateY(-40px); opacity: 0.7; } 100% { transform: scale(0.2) translateY(-80px) translateX(60px); opacity: 0; } }
+  .fly-animation { animation: flyToCart 0.5s ease-in forwards; }
+
+  @keyframes notifSlide { 0% { transform: translateX(-50%) translateY(-100%); opacity: 0; } 15% { transform: translateX(-50%) translateY(0); opacity: 1; } 85% { transform: translateX(-50%) translateY(0); opacity: 1; } 100% { transform: translateX(-50%) translateY(-100%); opacity: 0; } }
+  .notification { animation: notifSlide 2s ease forwards; }
+
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+  .cart-badge-pulse { animation: pulse 0.4s ease; }
+
+  .add-btn { transition: all 0.2s ease; }
+  .add-btn:active { transform: scale(0.95); filter: brightness(0.92); }
+
+  .back-btn { transition: all 0.18s ease; }
+  .back-btn:active { background: rgba(27,58,75,0.08); }
+
+  .remove-btn { transition: all 0.15s ease; }
+  .remove-btn:active { background: #fee2e2; }
+
+  .checkout-btn { transition: all 0.2s ease; }
+  .checkout-btn:active { filter: brightness(0.9); transform: scale(0.98); }
+
+  /* Scrollbar styling */
+  .scroll-area::-webkit-scrollbar { width: 4px; }
+  .scroll-area::-webkit-scrollbar-track { background: transparent; }
+  .scroll-area::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.9/babel.min.js"></script>
+<script type="text/babel">
+const { useState, useEffect, useCallback } = React;
+
+const PRODUCTS = [
+  { id:1, name:"Fjordland Classic", desc:"Thick-strained, slow-cultured plain yogurt from grass-fed Nordic cows", price:6.5, emoji:"🏔️", color:"#8BBDD9", tag:"Bestseller" },
+  { id:2, name:"Cloudberry Bliss", desc:"Wild Arctic cloudberries folded into creamy honey-drizzled yogurt", price:8.0, emoji:"🍊", color:"#D4A845", tag:"Seasonal" },
+  { id:3, name:"Nordic Forest", desc:"Blueberry and lingonberry compote layered with birch syrup yogurt", price:7.5, emoji:"🫐", color:"#6B5B8A", tag:"Popular" },
+  { id:4, name:"Midnight Sun", desc:"Vanilla bean and sea buckthorn with a swirl of golden honey", price:7.0, emoji:"☀️", color:"#E8A87C", tag:null },
+  { id:5, name:"Aurora Bowl", desc:"Matcha and spirulina-tinted yogurt with Arctic mint and pistachios", price:9.0, emoji:"🌌", color:"#6B8F71", tag:"New" },
+  { id:6, name:"Stave Church", desc:"Cinnamon and cardamom spiced yogurt with caramelized walnuts", price:7.5, emoji:"🏛️", color:"#A0785A", tag:null },
+];
+
+const TOPPINGS = [
+  { id:"granola", name:"Oat & Honey Granola", price:1.5, emoji:"🌾" },
+  { id:"nuts", name:"Toasted Nordic Nuts", price:1.5, emoji:"🥜" },
+  { id:"berries", name:"Fresh Wild Berries", price:2.0, emoji:"🍓" },
+  { id:"honey", name:"Mountain Flower Honey", price:1.0, emoji:"🍯" },
+  { id:"coconut", name:"Shaved Coconut", price:1.0, emoji:"🥥" },
+  { id:"chocolate", name:"Dark Chocolate Shards", price:1.5, emoji:"🍫" },
+  { id:"seeds", name:"Chia & Flax Seeds", price:1.0, emoji:"🌱" },
+  { id:"caramel", name:"Salted Caramel Drizzle", price:1.5, emoji:"🧂" },
+];
+
+const SIZES = [
+  { id:"sm", name:"Lite", ml:"200ml", multiplier:0.8 },
+  { id:"md", name:"Classic", ml:"350ml", multiplier:1 },
+  { id:"lg", name:"Grand", ml:"500ml", multiplier:1.4 },
+];
+
+const MountainSVG = ({ color="#1B3A4B", opacity=0.06 }) => (
+  <svg viewBox="0 0 800 120" style={{ width:"100%", display:"block" }} preserveAspectRatio="none">
+    <path d="M0,120 L0,80 L80,45 L140,70 L200,25 L260,55 L320,15 L380,50 L440,30 L500,60 L560,20 L620,50 L680,35 L740,55 L800,40 L800,120 Z" fill={color} opacity={opacity} />
+  </svg>
+);
+
+function App() {
+  const [screen, setScreen] = useState("menu");
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedSize, setSelectedSize] = useState("md");
+  const [selectedToppings, setSelectedToppings] = useState([]);
+  const [cart, setCart] = useState([]);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [animatingItem, setAnimatingItem] = useState(null);
+  const [notification, setNotification] = useState(null);
+  const [screenVisible, setScreenVisible] = useState(true);
+  const [badgeKey, setBadgeKey] = useState(0);
+
+  const transitionTo = useCallback((newScreen) => {
+    setScreenVisible(false);
+    setTimeout(() => { setScreen(newScreen); setScreenVisible(true); }, 280);
+  }, []);
+
+  const openCustomize = (product) => {
+    setSelectedProduct(product);
+    setSelectedSize("md");
+    setSelectedToppings([]);
+    transitionTo("customize");
+  };
+
+  const toggleTopping = (id) => {
+    setSelectedToppings(prev => prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]);
+  };
+
+  const getItemPrice = () => {
+    if (!selectedProduct) return 0;
+    const size = SIZES.find(s => s.id === selectedSize);
+    const base = selectedProduct.price * size.multiplier;
+    const extras = selectedToppings.reduce((sum, tid) => {
+      const t = TOPPINGS.find(tp => tp.id === tid);
+      return sum + (t ? t.price : 0);
+    }, 0);
+    return base + extras;
+  };
+
+  const addToCart = () => {
+    const item = {
+      cartId: Date.now(),
+      product: selectedProduct,
+      size: SIZES.find(s => s.id === selectedSize),
+      toppings: selectedToppings.map(tid => TOPPINGS.find(t => t.id === tid)),
+      price: getItemPrice(),
+    };
+    setAnimatingItem(item);
+    setTimeout(() => {
+      setCart(prev => [...prev, item]);
+      setBadgeKey(k => k + 1);
+      setAnimatingItem(null);
+      setNotification(selectedProduct.name + " added");
+      setTimeout(() => setNotification(null), 2000);
+      transitionTo("menu");
+    }, 500);
+  };
+
+  const removeFromCart = (cartId) => setCart(prev => prev.filter(i => i.cartId !== cartId));
+  const cartTotal = cart.reduce((s, i) => s + i.price, 0);
+  const cartCount = cart.length;
+
+  return (
+    <div style={{ height:"100%", display:"flex", flexDirection:"column", position:"relative", overflow:"hidden" }}>
+
+      {/* Notification */}
+      {notification && (
+        <div className="notification" style={{
+          position:"absolute", top:12, left:"50%", zIndex:500,
+          background:"#1B3A4B", color:"#fff", padding:"10px 24px", borderRadius:30,
+          fontSize:13, fontWeight:500, boxShadow:"0 8px 24px rgba(27,58,75,0.3)", whiteSpace:"nowrap",
+        }}>✓ {notification}</div>
+      )}
+
+      {/* Header */}
+      <header style={{
+        background:"rgba(250,251,253,0.92)", backdropFilter:"blur(16px)", WebkitBackdropFilter:"blur(16px)",
+        borderBottom:"1px solid #e8ecf0", zIndex:100, flexShrink:0,
+      }}>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"12px 20px" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+            {screen !== "menu" && (
+              <button className="back-btn" onClick={() => transitionTo("menu")} style={{
+                background:"none", border:"none", fontSize:16, color:"#1B3A4B",
+                cursor:"pointer", padding:"6px 10px", borderRadius:8,
+              }}>←</button>
+            )}
+            <div>
+              <h1 style={{ fontFamily:"'Fraunces', serif", fontSize:20, fontWeight:700, color:"#1B3A4B", letterSpacing:3 }}>NORÐISK</h1>
+              <p style={{ fontSize:10, color:"#94a3b8", letterSpacing:1.5, textTransform:"uppercase", marginTop:1 }}>Greek Yogurt · Est. Bergen</p>
+            </div>
+          </div>
+          <button onClick={() => setCartOpen(true)} style={{ background:"none", border:"none", cursor:"pointer", position:"relative", padding:8 }}>
+            <span style={{ fontSize:20 }}>🛒</span>
+            {cartCount > 0 && (
+              <span className="cart-badge-pulse" key={badgeKey} style={{
+                position:"absolute", top:2, right:0, background:"#D4A845", color:"#fff",
+                fontSize:10, fontWeight:700, width:18, height:18, borderRadius:"50%",
+                display:"flex", alignItems:"center", justifyContent:"center",
+              }}>{cartCount}</span>
+            )}
+          </button>
+        </div>
+      </header>
+
+      {/* Screen content */}
+      <div className="scroll-area" style={{
+        flex:1, overflowY:"auto", overflowX:"hidden", WebkitOverflowScrolling:"touch",
+        opacity: screenVisible ? 1 : 0, transform: screenVisible ? "translateY(0)" : "translateY(12px)",
+        transition: "opacity 0.28s ease, transform 0.28s ease",
+      }}>
+        {screen === "menu" && <MenuScreen products={PRODUCTS} onSelect={openCustomize} />}
+        {screen === "customize" && selectedProduct && (
+          <CustomizeScreen
+            product={selectedProduct} size={selectedSize} setSize={setSelectedSize}
+            toppings={selectedToppings} toggleTopping={toggleTopping}
+            price={getItemPrice()} onAdd={addToCart} animating={!!animatingItem}
+          />
+        )}
+      </div>
+
+      {/* Cart overlay */}
+      {cartOpen && <div className="cart-overlay" onClick={() => setCartOpen(false)} style={{
+        position:"absolute", inset:0, background:"rgba(27,58,75,0.4)", zIndex:200,
+      }} />}
+
+      {/* Cart drawer */}
+      <div className="cart-drawer" style={{
+        position:"absolute", top:0, right:0, bottom:0, width:"min(380px, 90%)",
+        background:"#fff", zIndex:300, display:"flex", flexDirection:"column",
+        boxShadow:"-8px 0 40px rgba(27,58,75,0.15)",
+        transform: cartOpen ? "translateX(0)" : "translateX(100%)",
+      }}>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"20px 24px", borderBottom:"1px solid #eef1f5" }}>
+          <h2 style={{ fontFamily:"'Fraunces', serif", fontSize:20, fontWeight:600, color:"#1B3A4B" }}>Your Order</h2>
+          <button onClick={() => setCartOpen(false)} style={{ background:"none", border:"none", fontSize:18, color:"#94a3b8", cursor:"pointer", padding:4 }}>✕</button>
+        </div>
+
+        {cart.length === 0 ? (
+          <div style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:40 }}>
+            <span style={{ fontSize:48, display:"block", marginBottom:12 }}>🥣</span>
+            <p style={{ color:"#94a3b8" }}>Your bowl is empty</p>
+          </div>
+        ) : (
+          <div className="scroll-area" style={{ flex:1, overflowY:"auto", padding:"12px 20px" }}>
+            {cart.map((item, i) => (
+              <div key={item.cartId} className="cart-item-enter" style={{
+                display:"flex", alignItems:"center", padding:"14px 0", borderBottom:"1px solid #f1f5f9",
+                animationDelay: i * 0.05 + "s",
+              }}>
+                <div style={{ flex:1 }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+                    <span style={{ fontSize:20 }}>{item.product.emoji}</span>
+                    <strong style={{ fontFamily:"'Fraunces', serif", fontWeight:600, fontSize:15, color:"#1B3A4B" }}>{item.product.name}</strong>
+                  </div>
+                  <p style={{ fontSize:12, color:"#94a3b8", marginTop:4 }}>
+                    {item.size.name} · {item.toppings.length > 0 ? item.toppings.map(t => t.name).join(", ") : "No extras"}
+                  </p>
+                </div>
+                <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+                  <span style={{ fontWeight:600, color:"#1B3A4B" }}>${item.price.toFixed(2)}</span>
+                  <button className="remove-btn" onClick={() => removeFromCart(item.cartId)} style={{
+                    background:"#fef2f2", border:"none", color:"#ef4444", width:26, height:26,
+                    borderRadius:8, cursor:"pointer", fontSize:12, display:"flex", alignItems:"center", justifyContent:"center",
+                  }}>✕</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {cart.length > 0 && (
+          <div style={{ padding:"16px 24px 24px", borderTop:"1px solid #eef1f5" }}>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:14 }}>
+              <span style={{ color:"#64748b" }}>Total</span>
+              <span style={{ fontFamily:"'Fraunces', serif", fontSize:24, fontWeight:700, color:"#1B3A4B" }}>${cartTotal.toFixed(2)}</span>
+            </div>
+            <button className="checkout-btn" style={{
+              width:"100%", background:"#1B3A4B", color:"#fff", border:"none", padding:16,
+              borderRadius:14, fontSize:15, fontWeight:600, cursor:"pointer", letterSpacing:0.5,
+            }}>Place Order →</button>
+          </div>
+        )}
+      </div>
+
+      {/* Fly animation */}
+      {animatingItem && (
+        <div className="fly-animation" style={{ position:"absolute", top:"50%", left:"50%", zIndex:400, pointerEvents:"none" }}>
+          <span style={{ fontSize:32 }}>{animatingItem.product.emoji}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MenuScreen({ products, onSelect }) {
+  return (
+    <div style={{ paddingBottom:20 }}>
+      {/* Hero */}
+      <div style={{ position:"relative", background:"linear-gradient(180deg, #1B3A4B 0%, #2a5468 100%)", overflow:"hidden" }}>
+        <MountainSVG />
+        <div style={{ padding:"32px 24px 28px", position:"relative", zIndex:1 }}>
+          <p style={{ fontSize:10, letterSpacing:2.5, textTransform:"uppercase", color:"#8BBDD9", marginBottom:10, fontWeight:500 }}>Hand-crafted in Norway</p>
+          <h2 style={{ fontFamily:"'Fraunces', serif", fontSize:32, fontWeight:300, color:"#fff", lineHeight:1.15, marginBottom:10, fontStyle:"italic" }}>Pure. Slow. Nordic.</h2>
+          <p style={{ fontSize:13, color:"#a4c4d6", lineHeight:1.6, maxWidth:320 }}>
+            Small-batch Greek yogurt made with traditions from the Norwegian fjords. Every bowl tells a story of patience and place.
+          </p>
+        </div>
+      </div>
+
+      {/* Section header */}
+      <div style={{ padding:"24px 24px 4px", display:"flex", justifyContent:"space-between", alignItems:"baseline" }}>
+        <h3 style={{ fontFamily:"'Fraunces', serif", fontSize:20, fontWeight:600, color:"#1B3A4B" }}>The Collection</h3>
+        <p style={{ fontSize:12, color:"#94a3b8" }}>{products.length} varieties</p>
+      </div>
+
+      {/* Grid */}
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:14, padding:"16px 20px" }}>
+        {products.map(p => (
+          <div key={p.id} className="product-card" onClick={() => onSelect(p)} style={{
+            background:"#fff", borderRadius:14, overflow:"hidden",
+            boxShadow:"0 2px 12px rgba(27,58,75,0.06)", border:"1px solid #eef1f5",
+          }}>
+            <div style={{
+              height:100, display:"flex", alignItems:"center", justifyContent:"center", position:"relative",
+              background: `linear-gradient(135deg, ${p.color}18, ${p.color}30)`,
+            }}>
+              <span style={{ fontSize:40 }}>{p.emoji}</span>
+              {p.tag && (
+                <span style={{
+                  position:"absolute", top:8, right:8, fontSize:9, fontWeight:600, color:"#fff",
+                  padding:"3px 8px", borderRadius:20, letterSpacing:0.5, textTransform:"uppercase",
+                  background: p.tag === "New" ? "#6B8F71" : p.tag === "Seasonal" ? "#D4A845" : "#1B3A4B",
+                }}>{p.tag}</span>
+              )}
+            </div>
+            <div style={{ padding:"12px 14px 14px" }}>
+              <h4 style={{ fontFamily:"'Fraunces', serif", fontSize:15, fontWeight:600, color:"#1B3A4B", marginBottom:4 }}>{p.name}</h4>
+              <p style={{
+                fontSize:11, color:"#94a3b8", lineHeight:1.5, marginBottom:10,
+                display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden",
+              }}>{p.desc}</p>
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+                <span style={{ fontFamily:"'Fraunces', serif", fontSize:16, fontWeight:700, color:"#1B3A4B" }}>${p.price.toFixed(2)}</span>
+                <span style={{ fontSize:11, color:"#8BBDD9", fontWeight:600 }}>Customize →</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ padding:"20px 0 8px" }}><MountainSVG opacity={0.04} /></div>
+    </div>
+  );
+}
+
+function CustomizeScreen({ product, size, setSize, toppings, toggleTopping, price, onAdd, animating }) {
+  return (
+    <div style={{ paddingBottom:100 }}>
+      {/* Hero */}
+      <div style={{
+        padding:"32px 24px", textAlign:"center",
+        background: `linear-gradient(160deg, ${product.color}12, ${product.color}28)`,
+      }}>
+        <span style={{ fontSize:56 }}>{product.emoji}</span>
+        <h2 style={{ fontFamily:"'Fraunces', serif", fontSize:26, fontWeight:600, color:"#1B3A4B", marginTop:12 }}>{product.name}</h2>
+        <p style={{ fontSize:13, color:"#64748b", lineHeight:1.6, marginTop:8, maxWidth:300, marginLeft:"auto", marginRight:"auto" }}>{product.desc}</p>
+      </div>
+
+      {/* Size */}
+      <div style={{ padding:"20px 24px 0" }}>
+        <h3 style={{ fontFamily:"'Fraunces', serif", fontSize:16, fontWeight:600, color:"#1B3A4B", marginBottom:12 }}>Size</h3>
+        <div style={{ display:"flex", gap:10 }}>
+          {SIZES.map(s => (
+            <button key={s.id} className="size-btn" onClick={() => setSize(s.id)} style={{
+              flex:1, padding:"14px 10px", borderRadius:12, border:"2px solid transparent",
+              display:"flex", flexDirection:"column", alignItems:"center", gap:4, cursor:"pointer",
+              background: size === s.id ? "#1B3A4B" : "#f1f5f9",
+              color: size === s.id ? "#fff" : "#475569",
+              borderColor: size === s.id ? "#1B3A4B" : "transparent",
+            }}>
+              <span style={{ fontSize:16, fontWeight:600, fontFamily:"'Fraunces', serif" }}>{s.name}</span>
+              <span style={{ fontSize:12, opacity:0.7 }}>{s.ml}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Toppings */}
+      <div style={{ padding:"20px 24px 0" }}>
+        <h3 style={{ fontFamily:"'Fraunces', serif", fontSize:16, fontWeight:600, color:"#1B3A4B", marginBottom:12 }}>Extras</h3>
+        <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+          {TOPPINGS.map(t => {
+            const active = toppings.includes(t.id);
+            return (
+              <div key={t.id} className="topping-chip" onClick={() => toggleTopping(t.id)} style={{
+                display:"flex", alignItems:"center", gap:10, padding:"12px 14px", borderRadius:12,
+                border:"1.5px solid " + (active ? "#1B3A4B" : "#e2e8f0"),
+                background: active ? "#1B3A4B" : "#f8fafc",
+                color: active ? "#fff" : "#334155",
+              }}>
+                <span style={{ fontSize:18 }}>{t.emoji}</span>
+                <div>
+                  <div style={{ fontSize:13, fontWeight:500 }}>{t.name}</div>
+                  <div style={{ fontSize:11, opacity:0.6 }}>+${t.price.toFixed(2)}</div>
+                </div>
+                {active && <span style={{ marginLeft:"auto", fontSize:14 }}>✓</span>}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div style={{
+        position:"fixed", bottom:0, left:"50%", transform:"translateX(-50%)",
+        width:"100%", maxWidth:480, zIndex:90,
+      }}>
+        <div style={{
+          display:"flex", justifyContent:"space-between", alignItems:"center", padding:"14px 24px",
+          background:"rgba(250,251,253,0.95)", backdropFilter:"blur(16px)", WebkitBackdropFilter:"blur(16px)",
+          borderTop:"1px solid #e8ecf0",
+        }}>
+          <div>
+            <span style={{ fontSize:12, color:"#94a3b8" }}>Total</span>
+            <p style={{ fontSize:22, fontWeight:700, fontFamily:"'Fraunces', serif", color:"#1B3A4B" }}>${price.toFixed(2)}</p>
+          </div>
+          <button className="add-btn" onClick={onAdd} disabled={animating} style={{
+            color:"#fff", border:"none", padding:"14px 28px", borderRadius:12,
+            fontSize:15, fontWeight:600, cursor:"pointer",
+            background: animating ? "#94a3b8" : product.color,
+          }}>{animating ? "Adding..." : "Add to Order"}</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
