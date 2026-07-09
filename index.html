@@ -1,92 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="mobile-web-app-capable" content="yes">
-<title>NORÐISK — Greek Yogurt</title>
+<title>ZEROTRANS GREEK YOGURT</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; overflow: hidden; }
-  body {
-    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: #EAEFF3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-font-smoothing: antialiased;
-  }
-  #root {
-    width: 100%;
-    max-width: 480px;
-    height: 100vh;
-    height: 100dvh;
-    background: #FAFBFD;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 0 60px rgba(27,58,75,0.12);
-  }
-  @media (min-width: 481px) {
-    #root {
-      height: 92vh;
-      border-radius: 24px;
-      border: 1px solid #dde3ea;
-    }
-  }
-
-  /* Animations */
-  .screen-fade-enter { opacity: 0; transform: translateY(12px); }
-  .screen-fade-active { opacity: 1; transform: translateY(0); transition: opacity 0.28s ease, transform 0.28s ease; }
-  .screen-fade-exit { opacity: 1; transform: translateY(0); }
-  .screen-fade-exit-active { opacity: 0; transform: translateY(12px); transition: opacity 0.22s ease, transform 0.22s ease; }
-
-  .product-card { transition: transform 0.22s ease, box-shadow 0.22s ease; cursor: pointer; }
-  .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(27,58,75,0.12); }
-  .product-card:active { transform: scale(0.97); }
-
-  .topping-chip { transition: all 0.18s ease; cursor: pointer; user-select: none; }
-  .topping-chip:active { transform: scale(0.96); }
-
-  .size-btn { transition: all 0.18s ease; cursor: pointer; }
-  .size-btn:active { transform: scale(0.95); }
-
-  .cart-drawer { transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1); }
-  .cart-overlay { transition: opacity 0.3s ease; }
-
-  @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
-  .cart-item-enter { animation: slideIn 0.3s ease forwards; }
-
-  @keyframes flyToCart { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.6) translateY(-40px); opacity: 0.7; } 100% { transform: scale(0.2) translateY(-80px) translateX(60px); opacity: 0; } }
-  .fly-animation { animation: flyToCart 0.5s ease-in forwards; }
-
-  @keyframes notifSlide { 0% { transform: translateX(-50%) translateY(-100%); opacity: 0; } 15% { transform: translateX(-50%) translateY(0); opacity: 1; } 85% { transform: translateX(-50%) translateY(0); opacity: 1; } 100% { transform: translateX(-50%) translateY(-100%); opacity: 0; } }
-  .notification { animation: notifSlide 2s ease forwards; }
-
-  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
-  .cart-badge-pulse { animation: pulse 0.4s ease; }
-
-  .add-btn { transition: all 0.2s ease; }
-  .add-btn:active { transform: scale(0.95); filter: brightness(0.92); }
-
-  .back-btn { transition: all 0.18s ease; }
-  .back-btn:active { background: rgba(27,58,75,0.08); }
-
-  .remove-btn { transition: all 0.15s ease; }
-  .remove-btn:active { background: #fee2e2; }
-
-  .checkout-btn { transition: all 0.2s ease; }
-  .checkout-btn:active { filter: brightness(0.9); transform: scale(0.98); }
-
-  /* Scrollbar styling */
-  .scroll-area::-webkit-scrollbar { width: 4px; }
-  .scroll-area::-webkit-scrollbar-track { background: transparent; }
-  .scroll-area::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;overflow:hidden}
+  body{font-family:'DM Sans',sans-serif;background:#E8EDF2;display:flex;justify-content:center;align-items:center;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased}
+  #root{width:100%;max-width:480px;height:100vh;height:100dvh;background:#FAFBFD;position:relative;overflow:hidden;box-shadow:0 0 60px rgba(27,58,75,0.12)}
+  @media(min-width:481px){#root{height:94vh;border-radius:24px;border:1px solid #dde3ea}}
+  .product-card{transition:transform .22s ease,box-shadow .22s ease;cursor:pointer}
+  .product-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(27,58,75,0.12)}
+  .product-card:active{transform:scale(.97)}
+  .size-btn{transition:all .18s ease;cursor:pointer}.size-btn:active{transform:scale(.95)}
+  .cart-drawer{transition:transform .35s cubic-bezier(.32,.72,0,1)}
+  @keyframes slideIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}.cart-item-enter{animation:slideIn .3s ease forwards}
+  @keyframes flyToCart{0%{transform:scale(1);opacity:1}50%{transform:scale(.6) translateY(-40px);opacity:.7}100%{transform:scale(.2) translateY(-80px) translateX(60px);opacity:0}}.fly-animation{animation:flyToCart .5s ease-in forwards}
+  @keyframes notifSlide{0%{transform:translateX(-50%) translateY(-100%);opacity:0}15%{transform:translateX(-50%) translateY(0);opacity:1}85%{transform:translateX(-50%) translateY(0);opacity:1}100%{transform:translateX(-50%) translateY(-100%);opacity:0}}.notification{animation:notifSlide 2s ease forwards}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}.cart-badge-pulse{animation:pulse .4s ease}
+  .add-btn{transition:all .2s ease}.add-btn:active{transform:scale(.95);filter:brightness(.92)}
+  .tab-btn{transition:all .2s ease;cursor:pointer}
+  .cat-pill{transition:all .18s ease;cursor:pointer;white-space:nowrap}.cat-pill:active{transform:scale(.95)}
+  .remove-btn{transition:all .15s ease}.remove-btn:active{background:#fee2e2}
+  .checkout-btn{transition:all .2s ease}.checkout-btn:active{filter:brightness(.9);transform:scale(.98)}
+  .scroll-area::-webkit-scrollbar{width:4px}.scroll-area::-webkit-scrollbar-track{background:transparent}.scroll-area::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}
 </style>
 </head>
 <body>
@@ -95,378 +38,433 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.9/babel.min.js"></script>
 <script type="text/babel">
-const { useState, useEffect, useCallback } = React;
+const {useState,useCallback}=React;
 
-const PRODUCTS = [
-  { id:1, name:"Fjordland Classic", desc:"Thick-strained, slow-cultured plain yogurt from grass-fed Nordic cows", price:6.5, emoji:"🏔️", color:"#8BBDD9", tag:"Bestseller" },
-  { id:2, name:"Cloudberry Bliss", desc:"Wild Arctic cloudberries folded into creamy honey-drizzled yogurt", price:8.0, emoji:"🍊", color:"#D4A845", tag:"Seasonal" },
-  { id:3, name:"Nordic Forest", desc:"Blueberry and lingonberry compote layered with birch syrup yogurt", price:7.5, emoji:"🫐", color:"#6B5B8A", tag:"Popular" },
-  { id:4, name:"Midnight Sun", desc:"Vanilla bean and sea buckthorn with a swirl of golden honey", price:7.0, emoji:"☀️", color:"#E8A87C", tag:null },
-  { id:5, name:"Aurora Bowl", desc:"Matcha and spirulina-tinted yogurt with Arctic mint and pistachios", price:9.0, emoji:"🌌", color:"#6B8F71", tag:"New" },
-  { id:6, name:"Stave Church", desc:"Cinnamon and cardamom spiced yogurt with caramelized walnuts", price:7.5, emoji:"🏛️", color:"#A0785A", tag:null },
+/* ─── SVG ILLUSTRATIONS ─── */
+function YogurtCupSVG({yc,yc2,toppings,id}){
+  return(
+    <svg viewBox="0 0 120 130" width="80" height="87">
+      <defs>
+        <linearGradient id={"yg"+id} x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={yc}/><stop offset="100%" stopColor={yc2||yc}/></linearGradient>
+        <clipPath id={"cc"+id}><path d="M25,35 L20,110 Q20,118 30,118 L90,118 Q100,118 100,110 L95,35 Z"/></clipPath>
+      </defs>
+      <path d="M25,35 L20,110 Q20,118 30,118 L90,118 Q100,118 100,110 L95,35 Z" fill="#f0f4f8" stroke="#c8d0da" strokeWidth="1.5"/>
+      <rect x="20" y="42" width="80" height="78" fill={"url(#yg"+id+")"} clipPath={"url(#cc"+id+")"}/>
+      <ellipse cx="60" cy="42" rx="37" ry="8" fill={yc}/>
+      <ellipse cx="60" cy="40" rx="30" ry="6" fill={yc2||yc} opacity="0.6"/>
+      <rect x="18" y="28" width="84" height="10" rx="3" fill="#e8ecf2" stroke="#c8d0da" strokeWidth="1"/>
+      <rect x="45" y="22" width="30" height="8" rx="4" fill="#d0d8e2"/>
+      {toppings==="blueberries"&&<><circle cx="48" cy="38" r="4.5" fill="#4338CA"/><circle cx="58" cy="36" r="4" fill="#5B52D6"/><circle cx="68" cy="38" r="4.5" fill="#4338CA"/><circle cx="53" cy="33" r="3" fill="#6366F1"/><circle cx="63" cy="34" r="3.5" fill="#4F46E5"/></>}
+      {toppings==="berries"&&<><circle cx="45" cy="37" r="4" fill="#DC2626"/><circle cx="55" cy="35" r="4.5" fill="#E11D48"/><circle cx="65" cy="37" r="4" fill="#9333EA"/><circle cx="72" cy="35" r="3.5" fill="#DC2626"/><circle cx="50" cy="33" r="3" fill="#F43F5E"/></>}
+      {toppings==="spirulina"&&<><ellipse cx="60" cy="38" rx="22" ry="5" fill="#1D88CE" opacity="0.4"/><circle cx="50" cy="36" r="2" fill="#fff" opacity="0.3"/><circle cx="65" cy="37" r="1.5" fill="#fff" opacity="0.25"/></>}
+      {toppings==="biscoff"&&<><rect x="42" y="30" width="12" height="7" rx="1.5" fill="#C07830" transform="rotate(-10,48,33)"/><rect x="58" y="31" width="12" height="7" rx="1.5" fill="#D48838" transform="rotate(8,64,34)"/><rect x="50" y="28" width="10" height="6" rx="1.5" fill="#B06828" transform="rotate(5,55,31)"/></>}
+      {toppings==="chocolate"&&<><rect x="44" y="30" width="10" height="5" rx="1" fill="#3C1810" transform="rotate(-12,49,32)"/><rect x="58" y="31" width="10" height="5" rx="1" fill="#4A2318" transform="rotate(10,63,33)"/><circle cx="53" cy="37" r="3.5" fill="#7C1D1D"/><circle cx="67" cy="36" r="3" fill="#991B1B"/></>}
+      <rect x="32" y="70" width="56" height="22" rx="3" fill="#fff" opacity="0.85"/>
+      <text x="60" y="78" textAnchor="middle" fontSize="5" fontWeight="700" fill="#1565C0" fontFamily="sans-serif">ZEROTRANS</text>
+      <text x="60" y="86" textAnchor="middle" fontSize="4" fill="#64748b" fontFamily="sans-serif">GREEK YOGURT</text>
+    </svg>
+  );
+}
+
+function CakeSVG({bc,yc,toppings,id}){
+  return(
+    <svg viewBox="0 0 140 110" width="110" height="86">
+      <defs><linearGradient id={"ck"+id} x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={yc}/><stop offset="100%" stopColor={yc} stopOpacity="0.8"/></linearGradient></defs>
+      <ellipse cx="70" cy="90" rx="56" ry="10" fill="#e2e8f0" opacity="0.5"/>
+      <path d="M22,78 Q22,88 30,90 L110,90 Q118,88 118,78 L118,72 L22,72 Z" fill={bc}/>
+      <circle cx="35" cy="80" r="1.5" fill="#00000015"/><circle cx="50" cy="78" r="1" fill="#00000012"/><circle cx="65" cy="81" r="1.5" fill="#00000015"/><circle cx="80" cy="79" r="1" fill="#00000012"/><circle cx="95" cy="80" r="1.5" fill="#00000015"/>
+      <rect x="22" y="38" width="96" height="36" fill={"url(#ck"+id+")"}/>
+      <path d="M20,30 L20,78 Q20,90 32,92 L108,92 Q120,90 120,78 L120,30" fill="none" stroke="rgba(148,163,184,0.4)" strokeWidth="1.5"/>
+      <ellipse cx="70" cy="38" rx="49" ry="9" fill={yc} opacity="0.9"/>
+      {toppings==="blueberry"&&<><circle cx="50" cy="33" r="5" fill="#4338CA"/><circle cx="60" cy="30" r="5.5" fill="#4F46E5"/><circle cx="72" cy="31" r="5" fill="#4338CA"/><circle cx="82" cy="33" r="4.5" fill="#5B52D6"/><circle cx="55" cy="26" r="4" fill="#6366F1"/><circle cx="66" cy="25" r="4.5" fill="#4F46E5"/><circle cx="76" cy="27" r="4" fill="#4338CA"/><circle cx="44" cy="35" r="3.5" fill="#5B52D6"/><circle cx="88" cy="35" r="3.5" fill="#4F46E5"/><circle cx="61" cy="35" r="4" fill="#4338CA"/><circle cx="59" cy="28" r="1" fill="#fff" opacity="0.3"/><circle cx="71" cy="29" r="1" fill="#fff" opacity="0.3"/></>}
+      {toppings==="biscoff"&&<><circle cx="48" cy="32" r="3" fill="#C07830" opacity="0.7"/><circle cx="58" cy="30" r="2.5" fill="#D48838" opacity="0.6"/><circle cx="68" cy="31" r="3" fill="#B06828" opacity="0.7"/><circle cx="78" cy="33" r="2.5" fill="#C07830" opacity="0.6"/><circle cx="53" cy="28" r="2" fill="#D48838" opacity="0.5"/><circle cx="73" cy="28" r="2" fill="#C07830" opacity="0.5"/><circle cx="63" cy="35" r="2.5" fill="#B06828" opacity="0.6"/><rect x="45" y="28" width="6" height="3" rx="1" fill="#A05818" opacity="0.5" transform="rotate(-15,48,29)"/><rect x="70" y="27" width="6" height="3" rx="1" fill="#A05818" opacity="0.5" transform="rotate(10,73,28)"/></>}
+      {toppings==="mixedberry"&&<><ellipse cx="50" cy="32" rx="6" ry="4" fill="#EF4444" transform="rotate(-10,50,32)"/><ellipse cx="70" cy="30" rx="6" ry="4" fill="#EF4444" transform="rotate(15,70,30)"/><ellipse cx="85" cy="33" rx="5" ry="3.5" fill="#EF4444" transform="rotate(-5,85,33)"/><circle cx="49" cy="31" r="0.5" fill="#FCA5A5"/><circle cx="69" cy="29" r="0.5" fill="#FCA5A5"/><circle cx="58" cy="28" r="4" fill="#4338CA"/><circle cx="78" cy="28" r="3.5" fill="#4F46E5"/><circle cx="64" cy="34" r="3.5" fill="#5B52D6"/><circle cx="44" cy="35" r="3" fill="#4338CA"/></>}
+      {toppings==="strawberry"&&<><ellipse cx="48" cy="31" rx="6" ry="4.5" fill="#EF4444" transform="rotate(-20,48,31)"/><ellipse cx="58" cy="28" rx="6" ry="4.5" fill="#F87171" transform="rotate(0,58,28)"/><ellipse cx="70" cy="28" rx="6" ry="4.5" fill="#EF4444" transform="rotate(10,70,28)"/><ellipse cx="80" cy="30" rx="6" ry="4.5" fill="#F87171" transform="rotate(25,80,30)"/><ellipse cx="88" cy="34" rx="5" ry="3.5" fill="#EF4444" transform="rotate(35,88,34)"/><ellipse cx="42" cy="34" rx="5" ry="3.5" fill="#F87171" transform="rotate(-30,42,34)"/><ellipse cx="64" cy="33" rx="5" ry="3.5" fill="#DC2626"/><circle cx="47" cy="30" r="0.5" fill="#FCA5A5"/><circle cx="57" cy="27" r="0.5" fill="#FCA5A5"/><circle cx="69" cy="27" r="0.5" fill="#FCA5A5"/><circle cx="79" cy="29" r="0.5" fill="#FCA5A5"/></>}
+    </svg>
+  );
+}
+
+/* ─── DATA ─── */
+const YP=[
+  {id:1,name:"Plain (Original)",cat:"no-sugar",desc:"รสธรรมชาติ เนื้อหนึบ แน่นที่สุด เปรี้ยวน้อย",prices:{sm:49,md:130,lg:290,kilo:550},color:"#F5F0E8",accent:"#C4A97D",tag:null,svg:{yc:"#FFF8EE",yc2:"#F5ECD8",toppings:"none"}},
+  {id:2,name:"Blue Spirulina",cat:"no-sugar",desc:"ผสมสาหร่ายสีฟ้า DETOX สารพิษในร่างกาย รสชาติเหมือนรสธรรมชาติ",prices:{sm:59,md:150,lg:330,kilo:590},color:"#E8F0FA",accent:"#5B8DB8",tag:"Superfood",svg:{yc:"#A8D8F0",yc2:"#78C0E8",toppings:"spirulina"}},
+  {id:3,name:"Blueberry",cat:"no-sugar",desc:"ผลิตจากผลบลูเบอร์รี่ 100% ใช้น้ำตาลหล่อฮังก้วย ไม่ผสมน้ำเชื่อม",prices:{sm:69,md:170,lg:380,kilo:690},color:"#EDE8F5",accent:"#6B5B8A",tag:"Popular",svg:{yc:"#C8B8E8",yc2:"#A890D8",toppings:"blueberries"}},
+  {id:4,name:"Berry Lover",cat:"no-sugar",desc:"สตรอเบอร์รี่ ราสเบอร์รี่ เชอร์รี่แท้ 100% ใช้น้ำตาลหล่อฮังก้วย",prices:{sm:69,md:170,lg:380,kilo:690},color:"#FAE8EE",accent:"#C25B7D",tag:null,svg:{yc:"#F8C0D0",yc2:"#F0A0B8",toppings:"berries"}},
+  {id:5,name:"Biscoff Caramel",cat:"sugar",desc:"รสคาราเมล บิสคิส BISCOFF สุดฮิต ถูกใจสายหวาน ไม่กลัวอ้วน",prices:{sm:69,md:170,lg:380,kilo:690},color:"#F5EDE4",accent:"#A0785A",tag:"Bestseller",svg:{yc:"#E8D0B0",yc2:"#D8B888",toppings:"biscoff"}},
+  {id:6,name:"Hershey Black Forest",cat:"sugar",desc:"ช็อกโกแลตเข้มข้น ความหอมหวานจาก HERSHEY ซอสเบอร์รี่สดของร้าน",prices:{sm:89,md:200,lg:480,kilo:790},color:"#EAE0E0",accent:"#5C3A3A",tag:"Premium",svg:{yc:"#8B6050",yc2:"#6B4030",toppings:"chocolate"}},
 ];
-
-const TOPPINGS = [
-  { id:"granola", name:"Oat & Honey Granola", price:1.5, emoji:"🌾" },
-  { id:"nuts", name:"Toasted Nordic Nuts", price:1.5, emoji:"🥜" },
-  { id:"berries", name:"Fresh Wild Berries", price:2.0, emoji:"🍓" },
-  { id:"honey", name:"Mountain Flower Honey", price:1.0, emoji:"🍯" },
-  { id:"coconut", name:"Shaved Coconut", price:1.0, emoji:"🥥" },
-  { id:"chocolate", name:"Dark Chocolate Shards", price:1.5, emoji:"🍫" },
-  { id:"seeds", name:"Chia & Flax Seeds", price:1.0, emoji:"🌱" },
-  { id:"caramel", name:"Salted Caramel Drizzle", price:1.5, emoji:"🧂" },
+const YS=[{id:"sm",name:"Small",weight:"70g",sub:"1 time"},{id:"md",name:"Medium",weight:"200g",sub:"2-3 times"},{id:"lg",name:"Large",weight:"500g",sub:"3-5 times"},{id:"kilo",name:"Kilo",weight:"1000g",sub:"5-10 times"}];
+const CP=[
+  {id:101,name:"Blueberry Greek Cake",cat:"cake",desc:"Fresh Blueberry · Blueberry Greek Yogurt · Pure Butter Oreo Crumble",layers:{top:"Fresh Blueberry",cake:"Blueberry Greek Yogurt",base:"Pure Butter Oreo Crumble"},prices:{mini:169,sm:280,md:450},color:"#E8E0F5",accent:"#4A3F8A",tag:"Bestseller",svg:{bc:"#3D3028",yc:"#C8B0E8",toppings:"blueberry"}},
+  {id:102,name:"Banoffee Biscoff",cat:"cake",desc:"Biscoff Crumble · Biscoff Greek Yogurt · Banana & Dark Chocolate Ganache",layers:{top:"Biscoff Biscuit Crumble",cake:"Biscoff Greek Yogurt",base:"Banana, Dark Chocolate Ganache, Oreo Crumble"},prices:{mini:149,sm:250,md:420},color:"#F5EDE4",accent:"#8B6B42",tag:"Recommended",svg:{bc:"#3D3028",yc:"#E8D0A8",toppings:"biscoff"}},
+  {id:103,name:"Mixed Berry Greek Cake",cat:"cake",desc:"Fresh Strawberry & Blueberry · Plain Greek Yogurt · Cookie Crumble",layers:{top:"Fresh Strawberry, Blueberry",cake:"Plain Greek Yogurt",base:"Pure Butter Cookie Crumble"},prices:{mini:189,sm:350,md:550},color:"#F5E0E8",accent:"#8A3F5B",tag:null,svg:{bc:"#D4B896",yc:"#FFF0F0",toppings:"mixedberry"}},
+  {id:104,name:"Strawberry Greek Cake",cat:"cake",desc:"Fresh Strawberry · Berrylicious Greek Yogurt · Cookie Crumble",layers:{top:"Fresh Strawberry",cake:"Berrylicious Greek Yogurt",base:"Pure Butter Cookie Crumble"},prices:{mini:189,sm:350,md:550},color:"#FAEAEC",accent:"#D4566A",tag:null,svg:{bc:"#D4B896",yc:"#FFD6DE",toppings:"strawberry"}},
 ];
+const CS=[{id:"mini",name:"Mini",weight:"8 cm",sub:"1 คน"},{id:"sm",name:"Small",weight:"10.8 cm",sub:"1-2 คน"},{id:"md",name:"Medium",weight:"12.5 cm",sub:"2-3 คน"}];
 
-const SIZES = [
-  { id:"sm", name:"Lite", ml:"200ml", multiplier:0.8 },
-  { id:"md", name:"Classic", ml:"350ml", multiplier:1 },
-  { id:"lg", name:"Grand", ml:"500ml", multiplier:1.4 },
-];
+function App(){
+  const[screen,setScreen]=useState("menu");
+  const[activeTab,setActiveTab]=useState("yogurt");
+  const[activeCat,setActiveCat]=useState("all");
+  const[selProd,setSelProd]=useState(null);
+  const[selSize,setSelSize]=useState(null);
+  const[cart,setCart]=useState([]);
+  const[cartOpen,setCartOpen]=useState(false);
+  const[notif,setNotif]=useState(null);
+  const[vis,setVis]=useState(true);
+  const[bk,setBk]=useState(0);
+  const[anim,setAnim]=useState(false);
+  const[qty,setQty]=useState(1);
 
-const MountainSVG = ({ color="#1B3A4B", opacity=0.06 }) => (
-  <svg viewBox="0 0 800 120" style={{ width:"100%", display:"block" }} preserveAspectRatio="none">
-    <path d="M0,120 L0,80 L80,45 L140,70 L200,25 L260,55 L320,15 L380,50 L440,30 L500,60 L560,20 L620,50 L680,35 L740,55 L800,40 L800,120 Z" fill={color} opacity={opacity} />
-  </svg>
-);
+  const go=useCallback(s=>{setVis(false);setTimeout(()=>{setScreen(s);setVis(true)},250)},[]);
+  const customize=p=>{setSelProd(p);setQty(1);setSelSize(p.cat==="cake"?"mini":"sm");go("customize")};
+  const price=()=>selProd&&selSize?(selProd.prices[selSize]||0)*qty:0;
 
-function App() {
-  const [screen, setScreen] = useState("menu");
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [selectedSize, setSelectedSize] = useState("md");
-  const [selectedToppings, setSelectedToppings] = useState([]);
-  const [cart, setCart] = useState([]);
-  const [cartOpen, setCartOpen] = useState(false);
-  const [animatingItem, setAnimatingItem] = useState(null);
-  const [notification, setNotification] = useState(null);
-  const [screenVisible, setScreenVisible] = useState(true);
-  const [badgeKey, setBadgeKey] = useState(0);
-
-  const transitionTo = useCallback((newScreen) => {
-    setScreenVisible(false);
-    setTimeout(() => { setScreen(newScreen); setScreenVisible(true); }, 280);
-  }, []);
-
-  const openCustomize = (product) => {
-    setSelectedProduct(product);
-    setSelectedSize("md");
-    setSelectedToppings([]);
-    transitionTo("customize");
+  const add=()=>{
+    const sizes=selProd.cat==="cake"?CS:YS;
+    const item={cid:Date.now(),prod:selProd,size:sizes.find(s=>s.id===selSize),qty,price:price()};
+    setAnim(true);
+    setTimeout(()=>{setCart(p=>[...p,item]);setBk(k=>k+1);setAnim(false);setNotif(selProd.name+" เพิ่มแล้ว!");setTimeout(()=>setNotif(null),2000);go("menu")},400);
   };
 
-  const toggleTopping = (id) => {
-    setSelectedToppings(prev => prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]);
+  const remove=id=>setCart(p=>p.filter(i=>i.cid!==id));
+  const total=cart.reduce((s,i)=>s+i.price,0);
+  const count=cart.reduce((s,i)=>s+i.qty,0);
+  const filtered=activeCat==="all"?YP:YP.filter(p=>p.cat===activeCat);
+  const[showSummary,setShowSummary]=useState(false);
+  const[copied,setCopied]=useState(false);
+  const[custName,setCustName]=useState("");
+  const[custPhone,setCustPhone]=useState("");
+  const[custAddress,setCustAddress]=useState("");
+  const[custNote,setCustNote]=useState("");
+  const[checkoutStep,setCheckoutStep]=useState("form"); // form | payment | done
+  const[submitting,setSubmitting]=useState(false);
+  const[orderNo,setOrderNo]=useState("");
+  const[acctCopied,setAcctCopied]=useState(false);
+
+  // ⚙️ ตั้งค่า: วาง URL ของ Google Apps Script Web App ตรงนี้ (ดูวิธีในคู่มือ)
+  const SHEETS_URL="PASTE_YOUR_APPS_SCRIPT_URL_HERE";
+  const BANK={name:"ธนาคารกสิกรไทย",acct:"063-3-12323-3",holder:"Zerotrans Bakery"};
+
+  const buildOrderText=()=>{
+    let txt="";
+    cart.forEach((item,i)=>{
+      txt+=(i+1)+". "+item.prod.name+" | "+item.size.name+" ("+item.size.weight+") × "+item.qty+" = ฿"+item.price+"\n";
+    });
+    return txt;
   };
 
-  const getItemPrice = () => {
-    if (!selectedProduct) return 0;
-    const size = SIZES.find(s => s.id === selectedSize);
-    const base = selectedProduct.price * size.multiplier;
-    const extras = selectedToppings.reduce((sum, tid) => {
-      const t = TOPPINGS.find(tp => tp.id === tid);
-      return sum + (t ? t.price : 0);
-    }, 0);
-    return base + extras;
+  const checkout=()=>{
+    setCheckoutStep("form");
+    setShowSummary(true);
   };
 
-  const addToCart = () => {
-    const item = {
-      cartId: Date.now(),
-      product: selectedProduct,
-      size: SIZES.find(s => s.id === selectedSize),
-      toppings: selectedToppings.map(tid => TOPPINGS.find(t => t.id === tid)),
-      price: getItemPrice(),
+  const submitOrder=async()=>{
+    if(!custName.trim()||!custPhone.trim()||!custAddress.trim()){
+      alert("กรุณากรอกชื่อ เบอร์โทร และที่อยู่จัดส่งให้ครบ");
+      return;
+    }
+    setSubmitting(true);
+    const oNo="ZT"+Date.now().toString().slice(-8);
+    setOrderNo(oNo);
+    const payload={
+      orderNo:oNo,
+      date:new Date().toLocaleString("th-TH"),
+      name:custName,phone:custPhone,address:custAddress,note:custNote,
+      items:buildOrderText(),total:total,
     };
-    setAnimatingItem(item);
-    setTimeout(() => {
-      setCart(prev => [...prev, item]);
-      setBadgeKey(k => k + 1);
-      setAnimatingItem(null);
-      setNotification(selectedProduct.name + " added");
-      setTimeout(() => setNotification(null), 2000);
-      transitionTo("menu");
-    }, 500);
+    if(SHEETS_URL&&!SHEETS_URL.includes("PASTE_YOUR")){
+      try{
+        await fetch(SHEETS_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(payload)});
+      }catch(e){console.error("Sheet submit failed",e)}
+    }
+    setSubmitting(false);
+    setCheckoutStep("payment");
   };
 
-  const removeFromCart = (cartId) => setCart(prev => prev.filter(i => i.cartId !== cartId));
-  const cartTotal = cart.reduce((s, i) => s + i.price, 0);
-  const cartCount = cart.length;
+  const finishOrder=()=>{
+    setCart([]);setShowSummary(false);setCheckoutStep("form");
+    setCustName("");setCustPhone("");setCustAddress("");setCustNote("");
+    setNotif("ส่งออเดอร์เรียบร้อย!");
+    setTimeout(()=>setNotif(null),2500);
+  };
 
-  return (
-    <div style={{ height:"100%", display:"flex", flexDirection:"column", position:"relative", overflow:"hidden" }}>
+  const openMessenger=()=>{
+    window.open("https://m.me/zerotransbakery","_blank");
+  };
 
-      {/* Notification */}
-      {notification && (
-        <div className="notification" style={{
-          position:"absolute", top:12, left:"50%", zIndex:500,
-          background:"#1B3A4B", color:"#fff", padding:"10px 24px", borderRadius:30,
-          fontSize:13, fontWeight:500, boxShadow:"0 8px 24px rgba(27,58,75,0.3)", whiteSpace:"nowrap",
-        }}>✓ {notification}</div>
-      )}
+  const ProductIcon=({p,w,h})=>{
+    if(p.cat==="cake") return <CakeSVG {...p.svg} id={p.id}/>;
+    return <YogurtCupSVG {...p.svg} id={p.id}/>;
+  };
 
-      {/* Header */}
-      <header style={{
-        background:"rgba(250,251,253,0.92)", backdropFilter:"blur(16px)", WebkitBackdropFilter:"blur(16px)",
-        borderBottom:"1px solid #e8ecf0", zIndex:100, flexShrink:0,
-      }}>
-        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"12px 20px" }}>
-          <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-            {screen !== "menu" && (
-              <button className="back-btn" onClick={() => transitionTo("menu")} style={{
-                background:"none", border:"none", fontSize:16, color:"#1B3A4B",
-                cursor:"pointer", padding:"6px 10px", borderRadius:8,
-              }}>←</button>
-            )}
+  return(
+    <div style={{height:"100%",display:"flex",flexDirection:"column",position:"relative",overflow:"hidden"}}>
+      {notif&&<div className="notification" style={{position:"absolute",top:12,left:"50%",zIndex:500,background:"#1565C0",color:"#fff",padding:"10px 24px",borderRadius:30,fontSize:13,fontWeight:600,boxShadow:"0 8px 24px rgba(21,101,192,0.35)",whiteSpace:"nowrap"}}>✓ {notif}</div>}
+
+      <header style={{background:"rgba(250,251,253,0.94)",backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",borderBottom:"1px solid #e2e8f0",zIndex:100,flexShrink:0}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 20px"}}>
+          <div style={{display:"flex",alignItems:"center",gap:10}}>
+            {screen!=="menu"&&<button onClick={()=>go("menu")} style={{background:"none",border:"none",fontSize:18,color:"#1565C0",cursor:"pointer",padding:"4px 8px",borderRadius:8}}>←</button>}
             <div>
-              <h1 style={{ fontFamily:"'Fraunces', serif", fontSize:20, fontWeight:700, color:"#1B3A4B", letterSpacing:3 }}>NORÐISK</h1>
-              <p style={{ fontSize:10, color:"#94a3b8", letterSpacing:1.5, textTransform:"uppercase", marginTop:1 }}>Greek Yogurt · Est. Bergen</p>
+              <h1 style={{fontFamily:"'Fraunces',serif",fontSize:18,fontWeight:700,color:"#1565C0",letterSpacing:1}}>ZEROTRANS</h1>
+              <p style={{fontSize:9,color:"#94a3b8",letterSpacing:1.5,textTransform:"uppercase"}}>Greek Yogurt · โคราช</p>
             </div>
           </div>
-          <button onClick={() => setCartOpen(true)} style={{ background:"none", border:"none", cursor:"pointer", position:"relative", padding:8 }}>
-            <span style={{ fontSize:20 }}>🛒</span>
-            {cartCount > 0 && (
-              <span className="cart-badge-pulse" key={badgeKey} style={{
-                position:"absolute", top:2, right:0, background:"#D4A845", color:"#fff",
-                fontSize:10, fontWeight:700, width:18, height:18, borderRadius:"50%",
-                display:"flex", alignItems:"center", justifyContent:"center",
-              }}>{cartCount}</span>
-            )}
+          <button onClick={()=>setCartOpen(true)} style={{background:"none",border:"none",cursor:"pointer",position:"relative",padding:8}}>
+            <span style={{fontSize:22}}>🛒</span>
+            {count>0&&<span className="cart-badge-pulse" key={bk} style={{position:"absolute",top:0,right:0,background:"#1565C0",color:"#fff",fontSize:10,fontWeight:700,minWidth:18,height:18,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",padding:"0 4px"}}>{count}</span>}
           </button>
         </div>
+        {screen==="menu"&&<div style={{display:"flex",borderTop:"1px solid #f1f5f9"}}>
+          {[{id:"yogurt",l:"🥛 Greek Yogurt"},{id:"cake",l:"🎂 Yogurt Cake"}].map(t=>(
+            <button key={t.id} className="tab-btn" onClick={()=>{setActiveTab(t.id);setActiveCat("all")}} style={{flex:1,padding:"10px 0",border:"none",fontSize:13,fontWeight:600,background:activeTab===t.id?"#fff":"transparent",color:activeTab===t.id?"#1565C0":"#94a3b8",borderBottom:activeTab===t.id?"2.5px solid #1565C0":"2.5px solid transparent"}}>{t.l}</button>
+          ))}
+        </div>}
       </header>
 
-      {/* Screen content */}
-      <div className="scroll-area" style={{
-        flex:1, overflowY:"auto", overflowX:"hidden", WebkitOverflowScrolling:"touch",
-        opacity: screenVisible ? 1 : 0, transform: screenVisible ? "translateY(0)" : "translateY(12px)",
-        transition: "opacity 0.28s ease, transform 0.28s ease",
-      }}>
-        {screen === "menu" && <MenuScreen products={PRODUCTS} onSelect={openCustomize} />}
-        {screen === "customize" && selectedProduct && (
-          <CustomizeScreen
-            product={selectedProduct} size={selectedSize} setSize={setSelectedSize}
-            toppings={selectedToppings} toggleTopping={toggleTopping}
-            price={getItemPrice()} onAdd={addToCart} animating={!!animatingItem}
-          />
+      <div className="scroll-area" style={{flex:1,overflowY:"auto",overflowX:"hidden",WebkitOverflowScrolling:"touch",opacity:vis?1:0,transform:vis?"translateY(0)":"translateY(10px)",transition:"opacity .25s ease,transform .25s ease"}}>
+        {screen==="menu"&&activeTab==="yogurt"&&(
+          <div style={{paddingBottom:20}}>
+            <div style={{background:"linear-gradient(135deg,#1565C0,#1E88E5)",padding:"28px 22px 24px",position:"relative",overflow:"hidden"}}>
+              <div style={{position:"absolute",bottom:0,left:0,right:0,opacity:.08}}><svg viewBox="0 0 800 80" style={{width:"100%",display:"block"}} preserveAspectRatio="none"><path d="M0,80 L0,50 Q100,20 200,40 Q300,60 400,30 Q500,0 600,35 Q700,70 800,25 L800,80 Z" fill="#fff"/></svg></div>
+              <p style={{fontSize:10,letterSpacing:2,textTransform:"uppercase",color:"rgba(255,255,255,0.65)",marginBottom:8,fontWeight:500}}>Premium Greek Yogurt</p>
+              <h2 style={{fontFamily:"'Fraunces',serif",fontSize:26,fontWeight:700,color:"#fff",lineHeight:1.2,marginBottom:6}}>ZEROTRANS</h2>
+              <p style={{fontSize:12,color:"rgba(255,255,255,0.7)",lineHeight:1.5}}>กรีกโยเกิร์ตพรีเมียม · ส่งเย็นทั่วประเทศ</p>
+            </div>
+            <div style={{display:"flex",gap:8,padding:"14px 20px 4px",overflowX:"auto"}}>
+              {[{id:"all",l:"ทั้งหมด"},{id:"no-sugar",l:"No Sugar Added"},{id:"sugar",l:"Have Sugar Added"}].map(c=>(
+                <button key={c.id} className="cat-pill" onClick={()=>setActiveCat(c.id)} style={{padding:"7px 16px",borderRadius:20,border:"1.5px solid",fontSize:12,fontWeight:600,background:activeCat===c.id?"#1565C0":"#fff",color:activeCat===c.id?"#fff":"#64748b",borderColor:activeCat===c.id?"#1565C0":"#e2e8f0"}}>{c.l}</button>
+              ))}
+            </div>
+            <div style={{margin:"12px 20px 4px",background:"#f0f6ff",borderRadius:12,padding:"12px 16px"}}>
+              <p style={{fontSize:11,fontWeight:600,color:"#1565C0",marginBottom:6}}>ขนาดถ้วย</p>
+              <div style={{display:"flex",justifyContent:"space-between",gap:6}}>
+                {YS.map(s=>(<div key={s.id} style={{textAlign:"center",flex:1}}><div style={{fontSize:13,fontWeight:700,color:"#1e293b"}}>{s.weight}</div><div style={{fontSize:9,color:"#94a3b8",marginTop:2}}>{s.sub}</div></div>))}
+              </div>
+            </div>
+            <div style={{padding:"10px 20px"}}>
+              {filtered.map(p=>(
+                <div key={p.id} className="product-card" onClick={()=>customize(p)} style={{background:"#fff",borderRadius:16,overflow:"hidden",marginBottom:12,boxShadow:"0 2px 12px rgba(0,0,0,0.05)",border:"1px solid #eef1f5",display:"flex",alignItems:"stretch"}}>
+                  <div style={{width:110,minHeight:110,display:"flex",alignItems:"center",justifyContent:"center",background:`linear-gradient(135deg,${p.color},${p.accent}12)`,flexShrink:0,position:"relative"}}>
+                    <ProductIcon p={p}/>
+                    {p.tag&&<span style={{position:"absolute",top:6,left:6,fontSize:8,fontWeight:700,color:"#fff",padding:"2px 7px",borderRadius:10,background:p.accent,letterSpacing:.3}}>{p.tag}</span>}
+                  </div>
+                  <div style={{padding:"12px 14px",flex:1,display:"flex",flexDirection:"column",justifyContent:"center"}}>
+                    <h4 style={{fontFamily:"'Fraunces',serif",fontSize:15,fontWeight:600,color:"#1e293b",marginBottom:3}}>{p.name}</h4>
+                    <p style={{fontSize:11,color:"#94a3b8",lineHeight:1.4,marginBottom:8}}>{p.desc}</p>
+                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                      <span style={{fontSize:15,fontWeight:700,color:"#1565C0",fontFamily:"'Fraunces',serif"}}>฿{p.prices.sm}–{p.prices.kilo}</span>
+                      <span style={{fontSize:11,color:"#1565C0",fontWeight:600}}>เลือก →</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{margin:"4px 20px 16px",background:"#FFFBEB",borderRadius:12,padding:"12px 16px",border:"1px solid #FEF3C7"}}>
+              <p style={{fontSize:11,color:"#92400E",lineHeight:1.6}}>📦 <strong>ระยะเวลาเก็บ:</strong> Plain, Blueberry, Biscoff แช่เย็น 12-14 วัน · Blue Spirulina, Berry 10 วัน<br/>⚠️ ห้ามแช่ช่องฟรีส สภาพจะเปลี่ยนทันที</p>
+            </div>
+          </div>
+        )}
+
+        {screen==="menu"&&activeTab==="cake"&&(
+          <div style={{paddingBottom:20}}>
+            <div style={{background:"linear-gradient(135deg,#1565C0,#42A5F5)",padding:"28px 22px 24px"}}>
+              <p style={{fontSize:10,letterSpacing:2,textTransform:"uppercase",color:"rgba(255,255,255,0.65)",marginBottom:8,fontWeight:500}}>Greey Yogurt Cake</p>
+              <h2 style={{fontFamily:"'Fraunces',serif",fontSize:24,fontWeight:700,color:"#fff",lineHeight:1.2,marginBottom:6}}>Greek Yogurt Cake</h2>
+              <p style={{fontSize:12,color:"rgba(255,255,255,0.7)",lineHeight:1.5}}>เค้กกรีกโยเกิร์ต เนื้อนุ่ม ฐานคุกกี้กรอบ</p>
+            </div>
+            <div style={{margin:"14px 20px 4px",background:"#f0f6ff",borderRadius:12,padding:"12px 16px"}}>
+              <p style={{fontSize:11,fontWeight:600,color:"#1565C0",marginBottom:8}}>ขนาดเค้ก</p>
+              <div style={{display:"flex",justifyContent:"space-around"}}>
+                {CS.map(s=>(<div key={s.id} style={{textAlign:"center"}}><div style={{fontSize:14,fontWeight:700,color:"#1e293b"}}>{s.name}</div><div style={{fontSize:11,color:"#64748b"}}>{s.weight}</div><div style={{fontSize:9,color:"#94a3b8",marginTop:2}}>{s.sub}</div></div>))}
+              </div>
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,padding:"12px 20px"}}>
+              {CP.map(p=>(
+                <div key={p.id} className="product-card" onClick={()=>customize(p)} style={{background:"#fff",borderRadius:16,overflow:"hidden",boxShadow:"0 2px 12px rgba(0,0,0,0.05)",border:"1px solid #eef1f5"}}>
+                  <div style={{height:130,display:"flex",alignItems:"center",justifyContent:"center",background:`linear-gradient(135deg,${p.color},${p.accent}15)`,position:"relative"}}>
+                    <ProductIcon p={p}/>
+                    {p.tag&&<span style={{position:"absolute",top:8,right:8,fontSize:8,fontWeight:700,color:"#fff",padding:"2px 8px",borderRadius:10,background:p.accent,letterSpacing:.3}}>{p.tag}</span>}
+                  </div>
+                  <div style={{padding:"10px 12px 12px"}}>
+                    <h4 style={{fontFamily:"'Fraunces',serif",fontSize:13,fontWeight:600,color:"#1e293b",marginBottom:4,lineHeight:1.3}}>{p.name}</h4>
+                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                      <span style={{fontSize:14,fontWeight:700,color:"#1565C0",fontFamily:"'Fraunces',serif"}}>฿{p.prices.mini}+</span>
+                      <span style={{fontSize:10,color:"#1565C0",fontWeight:600}}>เลือก →</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {screen==="customize"&&selProd&&(
+          <div style={{paddingBottom:110}}>
+            <div style={{padding:"24px 22px",textAlign:"center",background:`linear-gradient(160deg,${selProd.color},${selProd.accent}18)`}}>
+              <div style={{display:"inline-block",transform:selProd.cat==="cake"?"scale(1.4)":"scale(1.3)"}}><ProductIcon p={selProd}/></div>
+              <h2 style={{fontFamily:"'Fraunces',serif",fontSize:24,fontWeight:700,color:"#1e293b",marginTop:14}}>{selProd.name}</h2>
+              <p style={{fontSize:12,color:"#64748b",lineHeight:1.5,marginTop:6,maxWidth:300,margin:"6px auto 0"}}>{selProd.desc}</p>
+              {selProd.cat==="no-sugar"&&<span style={{display:"inline-block",marginTop:8,background:"#dcfce7",color:"#166534",fontSize:10,fontWeight:600,padding:"3px 10px",borderRadius:10}}>✓ No Sugar Added</span>}
+              {selProd.cat==="sugar"&&<span style={{display:"inline-block",marginTop:8,background:"#fef3c7",color:"#92400e",fontSize:10,fontWeight:600,padding:"3px 10px",borderRadius:10}}>Have Sugar Added</span>}
+            </div>
+            {selProd.cat==="cake"&&selProd.layers&&(
+              <div style={{margin:"16px 22px 0",background:"#fafbfd",borderRadius:12,padding:"14px 16px",border:"1px solid #eef1f5"}}>
+                <p style={{fontSize:11,fontWeight:600,color:"#1565C0",marginBottom:8}}>Layers</p>
+                {[{l:"TOP",v:selProd.layers.top},{l:"CAKE",v:selProd.layers.cake},{l:"BASE",v:selProd.layers.base}].map((x,i)=>(
+                  <div key={i} style={{display:"flex",gap:10,marginBottom:i<2?6:0,alignItems:"baseline"}}>
+                    <span style={{fontSize:9,fontWeight:700,color:"#94a3b8",width:34,flexShrink:0}}>{x.l}</span>
+                    <span style={{fontSize:12,color:"#475569"}}>{x.v}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            <div style={{padding:"18px 22px 0"}}>
+              <h3 style={{fontFamily:"'Fraunces',serif",fontSize:15,fontWeight:600,color:"#1e293b",marginBottom:10}}>เลือกขนาด</h3>
+              <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+                {(selProd.cat==="cake"?CS:YS).map(s=>(
+                  <button key={s.id} className="size-btn" onClick={()=>setSelSize(s.id)} style={{flex:1,minWidth:selProd.cat==="cake"?"30%":"22%",padding:"12px 8px",borderRadius:12,border:"2px solid",display:"flex",flexDirection:"column",alignItems:"center",gap:3,background:selSize===s.id?"#1565C0":"#f8fafc",color:selSize===s.id?"#fff":"#475569",borderColor:selSize===s.id?"#1565C0":"#e2e8f0"}}>
+                    <span style={{fontSize:14,fontWeight:700,fontFamily:"'Fraunces',serif"}}>{s.name}</span>
+                    <span style={{fontSize:10,opacity:.7}}>{s.weight}</span>
+                    <span style={{fontSize:13,fontWeight:700,marginTop:2}}>฿{selProd.prices[s.id]}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div style={{padding:"18px 22px 0"}}>
+              <h3 style={{fontFamily:"'Fraunces',serif",fontSize:15,fontWeight:600,color:"#1e293b",marginBottom:10}}>จำนวน</h3>
+              <div style={{display:"flex",alignItems:"center",gap:16}}>
+                <button onClick={()=>setQty(Math.max(1,qty-1))} style={{width:40,height:40,borderRadius:12,border:"1.5px solid #e2e8f0",background:"#f8fafc",fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",color:"#475569"}}>−</button>
+                <span style={{fontSize:22,fontWeight:700,color:"#1e293b",fontFamily:"'Fraunces',serif",minWidth:30,textAlign:"center"}}>{qty}</span>
+                <button onClick={()=>setQty(qty+1)} style={{width:40,height:40,borderRadius:12,border:"1.5px solid #1565C0",background:"#EBF5FF",fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",color:"#1565C0"}}>+</button>
+              </div>
+            </div>
+            <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:480,zIndex:90}}>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"12px 22px",background:"rgba(250,251,253,0.96)",backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",borderTop:"1px solid #e2e8f0"}}>
+                <div>
+                  <span style={{fontSize:11,color:"#94a3b8"}}>รวม</span>
+                  <p style={{fontSize:22,fontWeight:700,fontFamily:"'Fraunces',serif",color:"#1565C0"}}>฿{price()}</p>
+                </div>
+                <button className="add-btn" onClick={add} disabled={anim} style={{color:"#fff",border:"none",padding:"14px 28px",borderRadius:12,fontSize:15,fontWeight:600,cursor:"pointer",background:anim?"#94a3b8":"#1565C0"}}>{anim?"กำลังเพิ่ม...":"เพิ่มลงตะกร้า"}</button>
+              </div>
+            </div>
+          </div>
         )}
       </div>
 
-      {/* Cart overlay */}
-      {cartOpen && <div className="cart-overlay" onClick={() => setCartOpen(false)} style={{
-        position:"absolute", inset:0, background:"rgba(27,58,75,0.4)", zIndex:200,
-      }} />}
-
-      {/* Cart drawer */}
-      <div className="cart-drawer" style={{
-        position:"absolute", top:0, right:0, bottom:0, width:"min(380px, 90%)",
-        background:"#fff", zIndex:300, display:"flex", flexDirection:"column",
-        boxShadow:"-8px 0 40px rgba(27,58,75,0.15)",
-        transform: cartOpen ? "translateX(0)" : "translateX(100%)",
-      }}>
-        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"20px 24px", borderBottom:"1px solid #eef1f5" }}>
-          <h2 style={{ fontFamily:"'Fraunces', serif", fontSize:20, fontWeight:600, color:"#1B3A4B" }}>Your Order</h2>
-          <button onClick={() => setCartOpen(false)} style={{ background:"none", border:"none", fontSize:18, color:"#94a3b8", cursor:"pointer", padding:4 }}>✕</button>
+      {cartOpen&&<div onClick={()=>setCartOpen(false)} style={{position:"absolute",inset:0,background:"rgba(21,101,192,0.18)",zIndex:200}}/>}
+      <div className="cart-drawer" style={{position:"absolute",top:0,right:0,bottom:0,width:"min(380px,92%)",background:"#fff",zIndex:300,display:"flex",flexDirection:"column",boxShadow:"-8px 0 40px rgba(21,101,192,0.12)",transform:cartOpen?"translateX(0)":"translateX(100%)"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"18px 22px",borderBottom:"1px solid #eef1f5"}}>
+          <h2 style={{fontFamily:"'Fraunces',serif",fontSize:20,fontWeight:600,color:"#1565C0"}}>ตะกร้าของคุณ</h2>
+          <button onClick={()=>setCartOpen(false)} style={{background:"none",border:"none",fontSize:18,color:"#94a3b8",cursor:"pointer"}}>✕</button>
         </div>
-
-        {cart.length === 0 ? (
-          <div style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:40 }}>
-            <span style={{ fontSize:48, display:"block", marginBottom:12 }}>🥣</span>
-            <p style={{ color:"#94a3b8" }}>Your bowl is empty</p>
+        {cart.length===0?(
+          <div style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:40}}>
+            <span style={{fontSize:48,marginBottom:12}}>🥣</span><p style={{color:"#94a3b8"}}>ยังไม่มีสินค้าในตะกร้า</p>
           </div>
-        ) : (
-          <div className="scroll-area" style={{ flex:1, overflowY:"auto", padding:"12px 20px" }}>
-            {cart.map((item, i) => (
-              <div key={item.cartId} className="cart-item-enter" style={{
-                display:"flex", alignItems:"center", padding:"14px 0", borderBottom:"1px solid #f1f5f9",
-                animationDelay: i * 0.05 + "s",
-              }}>
-                <div style={{ flex:1 }}>
-                  <div style={{ display:"flex", alignItems:"center", gap:8 }}>
-                    <span style={{ fontSize:20 }}>{item.product.emoji}</span>
-                    <strong style={{ fontFamily:"'Fraunces', serif", fontWeight:600, fontSize:15, color:"#1B3A4B" }}>{item.product.name}</strong>
-                  </div>
-                  <p style={{ fontSize:12, color:"#94a3b8", marginTop:4 }}>
-                    {item.size.name} · {item.toppings.length > 0 ? item.toppings.map(t => t.name).join(", ") : "No extras"}
-                  </p>
+        ):(
+          <div className="scroll-area" style={{flex:1,overflowY:"auto",padding:"10px 18px"}}>
+            {cart.map((item,i)=>(
+              <div key={item.cid} className="cart-item-enter" style={{display:"flex",alignItems:"center",padding:"12px 0",borderBottom:"1px solid #f1f5f9",animationDelay:i*.05+"s",gap:8}}>
+                <div style={{width:36,height:36,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center"}}><ProductIcon p={item.prod}/></div>
+                <div style={{flex:1}}>
+                  <strong style={{fontFamily:"'Fraunces',serif",fontWeight:600,fontSize:13,color:"#1e293b"}}>{item.prod.name}</strong>
+                  <p style={{fontSize:11,color:"#94a3b8",marginTop:2}}>{item.size.name} ({item.size.weight}) × {item.qty}</p>
                 </div>
-                <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-                  <span style={{ fontWeight:600, color:"#1B3A4B" }}>${item.price.toFixed(2)}</span>
-                  <button className="remove-btn" onClick={() => removeFromCart(item.cartId)} style={{
-                    background:"#fef2f2", border:"none", color:"#ef4444", width:26, height:26,
-                    borderRadius:8, cursor:"pointer", fontSize:12, display:"flex", alignItems:"center", justifyContent:"center",
-                  }}>✕</button>
+                <div style={{display:"flex",alignItems:"center",gap:8}}>
+                  <span style={{fontWeight:600,color:"#1e293b",fontSize:14}}>฿{item.price}</span>
+                  <button className="remove-btn" onClick={()=>remove(item.cid)} style={{background:"#fef2f2",border:"none",color:"#ef4444",width:24,height:24,borderRadius:7,cursor:"pointer",fontSize:11,display:"flex",alignItems:"center",justifyContent:"center"}}>✕</button>
                 </div>
               </div>
             ))}
           </div>
         )}
-
-        {cart.length > 0 && (
-          <div style={{ padding:"16px 24px 24px", borderTop:"1px solid #eef1f5" }}>
-            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:14 }}>
-              <span style={{ color:"#64748b" }}>Total</span>
-              <span style={{ fontFamily:"'Fraunces', serif", fontSize:24, fontWeight:700, color:"#1B3A4B" }}>${cartTotal.toFixed(2)}</span>
+        {cart.length>0&&(
+          <div style={{padding:"14px 22px 22px",borderTop:"1px solid #eef1f5"}}>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+              <span style={{color:"#64748b",fontSize:14}}>รวมทั้งหมด</span>
+              <span style={{fontFamily:"'Fraunces',serif",fontSize:24,fontWeight:700,color:"#1565C0"}}>฿{total}</span>
             </div>
-            <button className="checkout-btn" style={{
-              width:"100%", background:"#1B3A4B", color:"#fff", border:"none", padding:16,
-              borderRadius:14, fontSize:15, fontWeight:600, cursor:"pointer", letterSpacing:0.5,
-            }}>Place Order →</button>
+            <button className="checkout-btn" onClick={checkout} style={{width:"100%",background:"#1565C0",color:"#fff",border:"none",padding:15,borderRadius:14,fontSize:15,fontWeight:600,cursor:"pointer"}}>สั่งซื้อ & ชำระเงิน →</button>
+            <p style={{fontSize:10,color:"#94a3b8",textAlign:"center",marginTop:8,lineHeight:1.5}}>กรอกที่อยู่ → โอนเงิน → ออเดอร์ส่งถึงร้านอัตโนมัติ</p>
           </div>
         )}
       </div>
+      {anim&&selProd&&<div className="fly-animation" style={{position:"absolute",top:"45%",left:"45%",zIndex:400,pointerEvents:"none"}}><span style={{fontSize:36}}>🛒</span></div>}
 
-      {/* Fly animation */}
-      {animatingItem && (
-        <div className="fly-animation" style={{ position:"absolute", top:"50%", left:"50%", zIndex:400, pointerEvents:"none" }}>
-          <span style={{ fontSize:32 }}>{animatingItem.product.emoji}</span>
+      {/* Checkout Modal */}
+      {showSummary&&(
+        <div style={{position:"absolute",inset:0,background:"rgba(0,0,0,0.5)",zIndex:600,display:"flex",alignItems:"center",justifyContent:"center",padding:16}} onClick={()=>checkoutStep!=="payment"&&setShowSummary(false)}>
+          <div onClick={e=>e.stopPropagation()} style={{background:"#fff",borderRadius:20,padding:"20px 18px",width:"100%",maxWidth:380,maxHeight:"88%",display:"flex",flexDirection:"column",boxShadow:"0 20px 60px rgba(0,0,0,0.3)",overflow:"hidden"}}>
+
+            {/* STEP 1: Customer info form */}
+            {checkoutStep==="form"&&<>
+              <div style={{textAlign:"center",marginBottom:12}}>
+                <span style={{fontSize:32}}>📝</span>
+                <h3 style={{fontFamily:"'Fraunces',serif",fontSize:17,fontWeight:700,color:"#1e293b",marginTop:4}}>ข้อมูลจัดส่ง</h3>
+              </div>
+              <div className="scroll-area" style={{flex:1,overflowY:"auto"}}>
+                <div style={{background:"#f8fafc",borderRadius:10,padding:"10px 12px",marginBottom:12,border:"1px solid #eef1f5"}}>
+                  {cart.map((item,i)=>(
+                    <div key={i} style={{display:"flex",justifyContent:"space-between",fontSize:11,color:"#475569",marginBottom:i<cart.length-1?4:0}}>
+                      <span>{item.prod.name} · {item.size.name} × {item.qty}</span>
+                      <span style={{fontWeight:600}}>฿{item.price}</span>
+                    </div>
+                  ))}
+                  <div style={{borderTop:"1px dashed #cbd5e1",marginTop:8,paddingTop:8,display:"flex",justifyContent:"space-between",fontSize:13,fontWeight:700,color:"#1565C0"}}>
+                    <span>รวม</span><span>฿{total}</span>
+                  </div>
+                </div>
+                <label style={{fontSize:11,fontWeight:600,color:"#475569",display:"block",marginBottom:4}}>ชื่อ-นามสกุล *</label>
+                <input value={custName} onChange={e=>setCustName(e.target.value)} placeholder="ชื่อผู้รับ" style={{width:"100%",padding:"10px 12px",borderRadius:10,border:"1.5px solid #e2e8f0",fontSize:13,marginBottom:10,fontFamily:"'DM Sans',sans-serif",outline:"none"}}/>
+                <label style={{fontSize:11,fontWeight:600,color:"#475569",display:"block",marginBottom:4}}>เบอร์โทร *</label>
+                <input value={custPhone} onChange={e=>setCustPhone(e.target.value)} placeholder="08X-XXX-XXXX" type="tel" style={{width:"100%",padding:"10px 12px",borderRadius:10,border:"1.5px solid #e2e8f0",fontSize:13,marginBottom:10,fontFamily:"'DM Sans',sans-serif",outline:"none"}}/>
+                <label style={{fontSize:11,fontWeight:600,color:"#475569",display:"block",marginBottom:4}}>ที่อยู่จัดส่ง *</label>
+                <textarea value={custAddress} onChange={e=>setCustAddress(e.target.value)} placeholder="บ้านเลขที่ ซอย ถนน ตำบล อำเภอ จังหวัด รหัสไปรษณีย์" rows="3" style={{width:"100%",padding:"10px 12px",borderRadius:10,border:"1.5px solid #e2e8f0",fontSize:13,marginBottom:10,fontFamily:"'DM Sans',sans-serif",outline:"none",resize:"none"}}/>
+                <label style={{fontSize:11,fontWeight:600,color:"#475569",display:"block",marginBottom:4}}>หมายเหตุ (ถ้ามี)</label>
+                <input value={custNote} onChange={e=>setCustNote(e.target.value)} placeholder="เช่น ส่งช่วงเย็น" style={{width:"100%",padding:"10px 12px",borderRadius:10,border:"1.5px solid #e2e8f0",fontSize:13,marginBottom:4,fontFamily:"'DM Sans',sans-serif",outline:"none"}}/>
+              </div>
+              <button onClick={submitOrder} disabled={submitting} style={{width:"100%",background:submitting?"#94a3b8":"#1565C0",color:"#fff",border:"none",padding:14,borderRadius:12,fontSize:14,fontWeight:600,cursor:"pointer",marginTop:12}}>{submitting?"กำลังส่งออเดอร์...":"ยืนยันออเดอร์ → ชำระเงิน"}</button>
+              <button onClick={()=>setShowSummary(false)} style={{width:"100%",background:"none",color:"#94a3b8",border:"none",padding:8,fontSize:12,cursor:"pointer",marginTop:2}}>ยกเลิก</button>
+            </>}
+
+            {/* STEP 2: Payment */}
+            {checkoutStep==="payment"&&<>
+              <div style={{textAlign:"center",marginBottom:12}}>
+                <span style={{fontSize:32}}>💳</span>
+                <h3 style={{fontFamily:"'Fraunces',serif",fontSize:17,fontWeight:700,color:"#1e293b",marginTop:4}}>ชำระเงิน</h3>
+                <p style={{fontSize:11,color:"#16a34a",fontWeight:600,marginTop:4}}>✓ ออเดอร์ #{orderNo} ส่งถึงร้านแล้ว</p>
+              </div>
+              <div className="scroll-area" style={{flex:1,overflowY:"auto"}}>
+                <div style={{background:"linear-gradient(135deg,#0A8043,#16a34a)",borderRadius:14,padding:"18px 16px",color:"#fff",marginBottom:12}}>
+                  <p style={{fontSize:11,opacity:.85,marginBottom:2}}>{BANK.name}</p>
+                  <p style={{fontSize:22,fontWeight:700,letterSpacing:1,fontFamily:"'Fraunces',serif"}}>{BANK.acct}</p>
+                  <p style={{fontSize:12,opacity:.9,marginTop:2}}>{BANK.holder}</p>
+                  <div style={{borderTop:"1px solid rgba(255,255,255,0.25)",marginTop:10,paddingTop:10,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                    <span style={{fontSize:12,opacity:.85}}>ยอดโอน</span>
+                    <span style={{fontSize:24,fontWeight:700,fontFamily:"'Fraunces',serif"}}>฿{total}</span>
+                  </div>
+                </div>
+                <button onClick={async()=>{try{await navigator.clipboard.writeText(BANK.acct.replace(/-/g,""));setAcctCopied(true);setTimeout(()=>setAcctCopied(false),2000)}catch(e){}}} style={{width:"100%",background:"#f1f5f9",color:"#334155",border:"1.5px solid #e2e8f0",padding:12,borderRadius:12,fontSize:13,fontWeight:600,cursor:"pointer",marginBottom:10}}>{acctCopied?"✓ คัดลอกแล้ว":"📋 คัดลอกเลขบัญชี"}</button>
+                <div style={{background:"#FFFBEB",borderRadius:10,padding:"10px 12px",border:"1px solid #FEF3C7",marginBottom:4}}>
+                  <p style={{fontSize:11,color:"#92400E",lineHeight:1.6}}>💡 <strong>ขั้นตอนสุดท้าย:</strong> โอนเงินตามยอด แล้วส่งสลิปพร้อมแจ้งเลขออเดอร์ <strong>#{orderNo}</strong> ทาง Messenger เพื่อยืนยันการชำระ</p>
+                </div>
+              </div>
+              <button onClick={openMessenger} style={{width:"100%",background:"#0084FF",color:"#fff",border:"none",padding:14,borderRadius:12,fontSize:14,fontWeight:600,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:8,marginTop:10}}>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.36 2 2 6.13 2 11.7c0 2.91 1.19 5.44 3.14 7.17.16.14.26.35.27.57l.05 1.78c.02.57.6.94 1.12.71l1.98-.87c.17-.08.36-.09.53-.04.91.25 1.88.38 2.91.38 5.64 0 10-4.13 10-9.7S17.64 2 12 2z"/></svg>
+                ส่งสลิปทาง Messenger
+              </button>
+              <button onClick={finishOrder} style={{width:"100%",background:"none",color:"#94a3b8",border:"none",padding:8,fontSize:12,cursor:"pointer",marginTop:2}}>เสร็จสิ้น</button>
+            </>}
+          </div>
         </div>
       )}
     </div>
   );
 }
 
-function MenuScreen({ products, onSelect }) {
-  return (
-    <div style={{ paddingBottom:20 }}>
-      {/* Hero */}
-      <div style={{ position:"relative", background:"linear-gradient(180deg, #1B3A4B 0%, #2a5468 100%)", overflow:"hidden" }}>
-        <MountainSVG />
-        <div style={{ padding:"32px 24px 28px", position:"relative", zIndex:1 }}>
-          <p style={{ fontSize:10, letterSpacing:2.5, textTransform:"uppercase", color:"#8BBDD9", marginBottom:10, fontWeight:500 }}>Hand-crafted in Norway</p>
-          <h2 style={{ fontFamily:"'Fraunces', serif", fontSize:32, fontWeight:300, color:"#fff", lineHeight:1.15, marginBottom:10, fontStyle:"italic" }}>Pure. Slow. Nordic.</h2>
-          <p style={{ fontSize:13, color:"#a4c4d6", lineHeight:1.6, maxWidth:320 }}>
-            Small-batch Greek yogurt made with traditions from the Norwegian fjords. Every bowl tells a story of patience and place.
-          </p>
-        </div>
-      </div>
-
-      {/* Section header */}
-      <div style={{ padding:"24px 24px 4px", display:"flex", justifyContent:"space-between", alignItems:"baseline" }}>
-        <h3 style={{ fontFamily:"'Fraunces', serif", fontSize:20, fontWeight:600, color:"#1B3A4B" }}>The Collection</h3>
-        <p style={{ fontSize:12, color:"#94a3b8" }}>{products.length} varieties</p>
-      </div>
-
-      {/* Grid */}
-      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:14, padding:"16px 20px" }}>
-        {products.map(p => (
-          <div key={p.id} className="product-card" onClick={() => onSelect(p)} style={{
-            background:"#fff", borderRadius:14, overflow:"hidden",
-            boxShadow:"0 2px 12px rgba(27,58,75,0.06)", border:"1px solid #eef1f5",
-          }}>
-            <div style={{
-              height:100, display:"flex", alignItems:"center", justifyContent:"center", position:"relative",
-              background: `linear-gradient(135deg, ${p.color}18, ${p.color}30)`,
-            }}>
-              <span style={{ fontSize:40 }}>{p.emoji}</span>
-              {p.tag && (
-                <span style={{
-                  position:"absolute", top:8, right:8, fontSize:9, fontWeight:600, color:"#fff",
-                  padding:"3px 8px", borderRadius:20, letterSpacing:0.5, textTransform:"uppercase",
-                  background: p.tag === "New" ? "#6B8F71" : p.tag === "Seasonal" ? "#D4A845" : "#1B3A4B",
-                }}>{p.tag}</span>
-              )}
-            </div>
-            <div style={{ padding:"12px 14px 14px" }}>
-              <h4 style={{ fontFamily:"'Fraunces', serif", fontSize:15, fontWeight:600, color:"#1B3A4B", marginBottom:4 }}>{p.name}</h4>
-              <p style={{
-                fontSize:11, color:"#94a3b8", lineHeight:1.5, marginBottom:10,
-                display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden",
-              }}>{p.desc}</p>
-              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                <span style={{ fontFamily:"'Fraunces', serif", fontSize:16, fontWeight:700, color:"#1B3A4B" }}>${p.price.toFixed(2)}</span>
-                <span style={{ fontSize:11, color:"#8BBDD9", fontWeight:600 }}>Customize →</span>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div style={{ padding:"20px 0 8px" }}><MountainSVG opacity={0.04} /></div>
-    </div>
-  );
-}
-
-function CustomizeScreen({ product, size, setSize, toppings, toggleTopping, price, onAdd, animating }) {
-  return (
-    <div style={{ paddingBottom:100 }}>
-      {/* Hero */}
-      <div style={{
-        padding:"32px 24px", textAlign:"center",
-        background: `linear-gradient(160deg, ${product.color}12, ${product.color}28)`,
-      }}>
-        <span style={{ fontSize:56 }}>{product.emoji}</span>
-        <h2 style={{ fontFamily:"'Fraunces', serif", fontSize:26, fontWeight:600, color:"#1B3A4B", marginTop:12 }}>{product.name}</h2>
-        <p style={{ fontSize:13, color:"#64748b", lineHeight:1.6, marginTop:8, maxWidth:300, marginLeft:"auto", marginRight:"auto" }}>{product.desc}</p>
-      </div>
-
-      {/* Size */}
-      <div style={{ padding:"20px 24px 0" }}>
-        <h3 style={{ fontFamily:"'Fraunces', serif", fontSize:16, fontWeight:600, color:"#1B3A4B", marginBottom:12 }}>Size</h3>
-        <div style={{ display:"flex", gap:10 }}>
-          {SIZES.map(s => (
-            <button key={s.id} className="size-btn" onClick={() => setSize(s.id)} style={{
-              flex:1, padding:"14px 10px", borderRadius:12, border:"2px solid transparent",
-              display:"flex", flexDirection:"column", alignItems:"center", gap:4, cursor:"pointer",
-              background: size === s.id ? "#1B3A4B" : "#f1f5f9",
-              color: size === s.id ? "#fff" : "#475569",
-              borderColor: size === s.id ? "#1B3A4B" : "transparent",
-            }}>
-              <span style={{ fontSize:16, fontWeight:600, fontFamily:"'Fraunces', serif" }}>{s.name}</span>
-              <span style={{ fontSize:12, opacity:0.7 }}>{s.ml}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Toppings */}
-      <div style={{ padding:"20px 24px 0" }}>
-        <h3 style={{ fontFamily:"'Fraunces', serif", fontSize:16, fontWeight:600, color:"#1B3A4B", marginBottom:12 }}>Extras</h3>
-        <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
-          {TOPPINGS.map(t => {
-            const active = toppings.includes(t.id);
-            return (
-              <div key={t.id} className="topping-chip" onClick={() => toggleTopping(t.id)} style={{
-                display:"flex", alignItems:"center", gap:10, padding:"12px 14px", borderRadius:12,
-                border:"1.5px solid " + (active ? "#1B3A4B" : "#e2e8f0"),
-                background: active ? "#1B3A4B" : "#f8fafc",
-                color: active ? "#fff" : "#334155",
-              }}>
-                <span style={{ fontSize:18 }}>{t.emoji}</span>
-                <div>
-                  <div style={{ fontSize:13, fontWeight:500 }}>{t.name}</div>
-                  <div style={{ fontSize:11, opacity:0.6 }}>+${t.price.toFixed(2)}</div>
-                </div>
-                {active && <span style={{ marginLeft:"auto", fontSize:14 }}>✓</span>}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Bottom bar */}
-      <div style={{
-        position:"fixed", bottom:0, left:"50%", transform:"translateX(-50%)",
-        width:"100%", maxWidth:480, zIndex:90,
-      }}>
-        <div style={{
-          display:"flex", justifyContent:"space-between", alignItems:"center", padding:"14px 24px",
-          background:"rgba(250,251,253,0.95)", backdropFilter:"blur(16px)", WebkitBackdropFilter:"blur(16px)",
-          borderTop:"1px solid #e8ecf0",
-        }}>
-          <div>
-            <span style={{ fontSize:12, color:"#94a3b8" }}>Total</span>
-            <p style={{ fontSize:22, fontWeight:700, fontFamily:"'Fraunces', serif", color:"#1B3A4B" }}>${price.toFixed(2)}</p>
-          </div>
-          <button className="add-btn" onClick={onAdd} disabled={animating} style={{
-            color:"#fff", border:"none", padding:"14px 28px", borderRadius:12,
-            fontSize:15, fontWeight:600, cursor:"pointer",
-            background: animating ? "#94a3b8" : product.color,
-          }}>{animating ? "Adding..." : "Add to Order"}</button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
 </script>
 </body>
 </html>
