@@ -152,13 +152,19 @@ function App(){
   const[custPhone,setCustPhone]=useState("");
   const[custAddress,setCustAddress]=useState("");
   const[custNote,setCustNote]=useState("");
+  const[delivDate,setDelivDate]=useState("");
+  const[delivType,setDelivType]=useState("pickup"); // pickup | delivery
+  const[courier,setCourier]=useState("nim"); // nim | inter
+  const COURIERS={nim:{name:"Nim Express",fee:200},inter:{name:"Inter Express",fee:250}};
+  const shipFee=delivType==="delivery"?COURIERS[courier].fee:0;
+  const grandTotal=()=>total+shipFee;
   const[checkoutStep,setCheckoutStep]=useState("form"); // form | payment | done
   const[submitting,setSubmitting]=useState(false);
   const[orderNo,setOrderNo]=useState("");
   const[acctCopied,setAcctCopied]=useState(false);
 
   // ⚙️ ตั้งค่า: วาง URL ของ Google Apps Script Web App ตรงนี้ (ดูวิธีในคู่มือ)
-  const SHEETS_URL="https://script.google.com/macros/s/AKfycbzeypvhiynuf8J-qz5LgDM7_beARiw7fhhRgsK_oKpg24v5BeZQ032_YKKAiJ4aH_Il1w/exec";
+  const SHEETS_URL="https://script.google.com/macros/s/AKfycbz9MaXfWIP9g1tA3U034fRnVIMFEMj4q8wyXtfQ-iQ8ccd0a15meqbqAKj0Q7JEB2hpSA/exec";
   const BANK={name:"ธนาคารกสิกรไทย",acct:"063-3-12323-3",holder:"Zerotrans Bakery"};
 
   const buildOrderText=()=>{
@@ -175,8 +181,16 @@ function App(){
   };
 
   const submitOrder=async()=>{
-    if(!custName.trim()||!custPhone.trim()||!custAddress.trim()){
-      alert("กรุณากรอกชื่อ เบอร์โทร และที่อยู่จัดส่งให้ครบ");
+    if(!custName.trim()||!custPhone.trim()){
+      alert("กรุณากรอกชื่อ และเบอร์โทร");
+      return;
+    }
+    if(!delivDate){
+      alert("กรุณาเลือกวันที่รับสินค้า/จัดส่ง");
+      return;
+    }
+    if(delivType==="delivery"&&!custAddress.trim()){
+      alert("กรุณากรอกที่อยู่จัดส่ง");
       return;
     }
     setSubmitting(true);
@@ -186,7 +200,9 @@ function App(){
       orderNo:oNo,
       date:new Date().toLocaleString("th-TH"),
       name:custName,phone:custPhone,address:custAddress,note:custNote,
-      items:buildOrderText(),total:total,
+      delivDate:delivDate,
+      delivMethod:delivType==="pickup"?"รับหน้าร้าน":"จัดส่ง "+COURIERS[courier].name+" (฿"+COURIERS[courier].fee+")",
+      items:buildOrderText(),total:grandTotal(),
     };
     if(SHEETS_URL&&!SHEETS_URL.includes("PASTE_YOUR")){
       try{
@@ -199,7 +215,7 @@ function App(){
 
   const finishOrder=()=>{
     setCart([]);setShowSummary(false);setCheckoutStep("form");
-    setCustName("");setCustPhone("");setCustAddress("");setCustNote("");
+    setCustName("");setCustPhone("");setCustAddress("");setCustNote("");setDelivDate("");setDelivType("pickup");setCourier("nim");
     setNotif("ส่งออเดอร์เรียบร้อย!");
     setTimeout(()=>setNotif(null),2500);
   };
@@ -437,16 +453,42 @@ function App(){
                       <span style={{fontWeight:600}}>฿{item.price}</span>
                     </div>
                   ))}
+                  {shipFee>0&&<div style={{display:"flex",justifyContent:"space-between",fontSize:11,color:"#475569",marginTop:4}}>
+                    <span>ค่าจัดส่ง ({COURIERS[courier].name})</span><span style={{fontWeight:600}}>฿{shipFee}</span>
+                  </div>}
                   <div style={{borderTop:"1px dashed #cbd5e1",marginTop:8,paddingTop:8,display:"flex",justifyContent:"space-between",fontSize:13,fontWeight:700,color:"#1565C0"}}>
-                    <span>รวม</span><span>฿{total}</span>
+                    <span>รวม</span><span>฿{grandTotal()}</span>
                   </div>
                 </div>
                 <label style={{fontSize:11,fontWeight:600,color:"#475569",display:"block",marginBottom:4}}>ชื่อ-นามสกุล *</label>
                 <input value={custName} onChange={e=>setCustName(e.target.value)} placeholder="ชื่อผู้รับ" style={{width:"100%",padding:"10px 12px",borderRadius:10,border:"1.5px solid #e2e8f0",fontSize:13,marginBottom:10,fontFamily:"'DM Sans',sans-serif",outline:"none"}}/>
                 <label style={{fontSize:11,fontWeight:600,color:"#475569",display:"block",marginBottom:4}}>เบอร์โทร *</label>
                 <input value={custPhone} onChange={e=>setCustPhone(e.target.value)} placeholder="08X-XXX-XXXX" type="tel" style={{width:"100%",padding:"10px 12px",borderRadius:10,border:"1.5px solid #e2e8f0",fontSize:13,marginBottom:10,fontFamily:"'DM Sans',sans-serif",outline:"none"}}/>
-                <label style={{fontSize:11,fontWeight:600,color:"#475569",display:"block",marginBottom:4}}>ที่อยู่จัดส่ง *</label>
-                <textarea value={custAddress} onChange={e=>setCustAddress(e.target.value)} placeholder="บ้านเลขที่ ซอย ถนน ตำบล อำเภอ จังหวัด รหัสไปรษณีย์" rows="3" style={{width:"100%",padding:"10px 12px",borderRadius:10,border:"1.5px solid #e2e8f0",fontSize:13,marginBottom:10,fontFamily:"'DM Sans',sans-serif",outline:"none",resize:"none"}}/>
+                <label style={{fontSize:11,fontWeight:600,color:"#475569",display:"block",marginBottom:4}}>วันที่รับสินค้า/จัดส่ง *</label>
+                <input type="date" value={delivDate} min={new Date().toISOString().split("T")[0]} onChange={e=>setDelivDate(e.target.value)} style={{width:"100%",padding:"10px 12px",borderRadius:10,border:"1.5px solid #e2e8f0",fontSize:13,marginBottom:10,fontFamily:"'DM Sans',sans-serif",outline:"none",background:"#fff",color:"#1e293b"}}/>
+
+                <label style={{fontSize:11,fontWeight:600,color:"#475569",display:"block",marginBottom:6}}>ประเภทการรับสินค้า *</label>
+                <div style={{display:"flex",gap:8,marginBottom:10}}>
+                  <button type="button" onClick={()=>setDelivType("pickup")} style={{flex:1,padding:"11px 8px",borderRadius:10,border:"2px solid",fontSize:12,fontWeight:600,cursor:"pointer",background:delivType==="pickup"?"#1565C0":"#f8fafc",color:delivType==="pickup"?"#fff":"#475569",borderColor:delivType==="pickup"?"#1565C0":"#e2e8f0"}}>🏪 รับหน้าร้าน<div style={{fontSize:10,fontWeight:400,opacity:.8,marginTop:2}}>ฟรี</div></button>
+                  <button type="button" onClick={()=>setDelivType("delivery")} style={{flex:1,padding:"11px 8px",borderRadius:10,border:"2px solid",fontSize:12,fontWeight:600,cursor:"pointer",background:delivType==="delivery"?"#1565C0":"#f8fafc",color:delivType==="delivery"?"#fff":"#475569",borderColor:delivType==="delivery"?"#1565C0":"#e2e8f0"}}>🚚 จัดส่งขนส่งเย็น<div style={{fontSize:10,fontWeight:400,opacity:.8,marginTop:2}}>฿200-250</div></button>
+                </div>
+
+                {delivType==="delivery"&&<>
+                  <label style={{fontSize:11,fontWeight:600,color:"#475569",display:"block",marginBottom:6}}>เลือกขนส่ง *</label>
+                  <div style={{display:"flex",flexDirection:"column",gap:6,marginBottom:10}}>
+                    {Object.entries(COURIERS).map(([k,c])=>(
+                      <button type="button" key={k} onClick={()=>setCourier(k)} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"11px 14px",borderRadius:10,border:"2px solid",fontSize:13,fontWeight:600,cursor:"pointer",background:courier===k?"#EBF5FF":"#f8fafc",color:"#1e293b",borderColor:courier===k?"#1565C0":"#e2e8f0"}}>
+                        <span style={{display:"flex",alignItems:"center",gap:8}}>
+                          <span style={{width:16,height:16,borderRadius:"50%",border:"2px solid",borderColor:courier===k?"#1565C0":"#cbd5e1",background:courier===k?"#1565C0":"#fff",display:"inline-flex",alignItems:"center",justifyContent:"center"}}>{courier===k&&<span style={{width:6,height:6,borderRadius:"50%",background:"#fff"}}/>}</span>
+                          {c.name}
+                        </span>
+                        <span style={{color:"#1565C0"}}>฿{c.fee}</span>
+                      </button>
+                    ))}
+                  </div>
+                  <label style={{fontSize:11,fontWeight:600,color:"#475569",display:"block",marginBottom:4}}>ที่อยู่จัดส่ง *</label>
+                  <textarea value={custAddress} onChange={e=>setCustAddress(e.target.value)} placeholder="บ้านเลขที่ ซอย ถนน ตำบล อำเภอ จังหวัด รหัสไปรษณีย์" rows="3" style={{width:"100%",padding:"10px 12px",borderRadius:10,border:"1.5px solid #e2e8f0",fontSize:13,marginBottom:10,fontFamily:"'DM Sans',sans-serif",outline:"none",resize:"none"}}/>
+                </>}
                 <label style={{fontSize:11,fontWeight:600,color:"#475569",display:"block",marginBottom:4}}>หมายเหตุ (ถ้ามี)</label>
                 <input value={custNote} onChange={e=>setCustNote(e.target.value)} placeholder="เช่น ส่งช่วงเย็น" style={{width:"100%",padding:"10px 12px",borderRadius:10,border:"1.5px solid #e2e8f0",fontSize:13,marginBottom:4,fontFamily:"'DM Sans',sans-serif",outline:"none"}}/>
               </div>
@@ -467,8 +509,8 @@ function App(){
                   <p style={{fontSize:22,fontWeight:700,letterSpacing:1,fontFamily:"'Fraunces',serif"}}>{BANK.acct}</p>
                   <p style={{fontSize:12,opacity:.9,marginTop:2}}>{BANK.holder}</p>
                   <div style={{borderTop:"1px solid rgba(255,255,255,0.25)",marginTop:10,paddingTop:10,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                    <span style={{fontSize:12,opacity:.85}}>ยอดโอน</span>
-                    <span style={{fontSize:24,fontWeight:700,fontFamily:"'Fraunces',serif"}}>฿{total}</span>
+                    <span style={{fontSize:12,opacity:.85}}>ยอดโอน{shipFee>0?" (รวมค่าส่ง ฿"+shipFee+")":""}</span>
+                    <span style={{fontSize:24,fontWeight:700,fontFamily:"'Fraunces',serif"}}>฿{grandTotal()}</span>
                   </div>
                 </div>
                 <button onClick={async()=>{try{await navigator.clipboard.writeText(BANK.acct.replace(/-/g,""));setAcctCopied(true);setTimeout(()=>setAcctCopied(false),2000)}catch(e){}}} style={{width:"100%",background:"#f1f5f9",color:"#334155",border:"1.5px solid #e2e8f0",padding:12,borderRadius:12,fontSize:13,fontWeight:600,cursor:"pointer",marginBottom:10}}>{acctCopied?"✓ คัดลอกแล้ว":"📋 คัดลอกเลขบัญชี"}</button>
