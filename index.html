@@ -137,6 +137,12 @@ function App(){
   };
 
   const remove=id=>setCart(p=>p.filter(i=>i.cid!==id));
+  const changeQty=(cid,delta)=>setCart(p=>p.map(i=>{
+    if(i.cid!==cid) return i;
+    const newQty=Math.max(1,i.qty+delta);
+    const unit=i.price/i.qty;
+    return {...i,qty:newQty,price:unit*newQty};
+  }));
   const total=cart.reduce((s,i)=>s+i.price,0);
   const count=cart.reduce((s,i)=>s+i.qty,0);
   const filtered=activeCat==="all"?YP:YP.filter(p=>p.cat===activeCat);
@@ -152,7 +158,7 @@ function App(){
   const[acctCopied,setAcctCopied]=useState(false);
 
   // ⚙️ ตั้งค่า: วาง URL ของ Google Apps Script Web App ตรงนี้ (ดูวิธีในคู่มือ)
-  const SHEETS_URL="const SHEETS_URL="https://script.google.com/macros/s/AKfycbxXXXX/exec";";
+  const SHEETS_URL="https://script.google.com/macros/s/AKfycbzeypvhiynuf8J-qz5LgDM7_beARiw7fhhRgsK_oKpg24v5BeZQ032_YKKAiJ4aH_Il1w/exec";
   const BANK={name:"ธนาคารกสิกรไทย",acct:"063-3-12323-3",holder:"Zerotrans Bakery"};
 
   const buildOrderText=()=>{
@@ -202,10 +208,12 @@ function App(){
     window.open("https://m.me/zerotransbakery","_blank");
   };
 
-  const ProductIcon=({p,big})=>{
-    if(p.img&&IMAGES[p.img]) return <img src={IMAGES[p.img]} style={{width:big?150:90,height:big?150:90,objectFit:"contain",borderRadius:10}} alt={p.name}/>;
-    if(p.cat==="cake") return <CakeSVG {...p.svg} id={p.id}/>;
-    return <YogurtCupSVG {...p.svg} id={p.id}/>;
+  const ProductIcon=({p,big,small})=>{
+    const px=small?44:(big?150:90);
+    if(p.img&&IMAGES[p.img]) return <img src={IMAGES[p.img]} style={{width:px,height:px,objectFit:"contain",borderRadius:8}} alt={p.name}/>;
+    const inner=p.cat==="cake"?<CakeSVG {...p.svg} id={p.id+"_"+(small?"s":big?"b":"m")}/>:<YogurtCupSVG {...p.svg} id={p.id+"_"+(small?"s":big?"b":"m")}/>;
+    if(small) return <div style={{width:44,height:44,display:"flex",alignItems:"center",justifyContent:"center",overflow:"hidden"}}><div style={{transform:"scale(0.45)",transformOrigin:"center"}}>{inner}</div></div>;
+    return inner;
   };
 
   return(
@@ -311,7 +319,7 @@ function App(){
         )}
 
         {screen==="customize"&&selProd&&(
-          <div style={{paddingBottom:110}}>
+          <div style={{paddingBottom:24}}>
             <div style={{padding:"24px 22px",textAlign:"center",background:`linear-gradient(160deg,${selProd.color},${selProd.accent}18)`}}>
               <div style={{display:"inline-block",transform:selProd.img?"none":(selProd.cat==="cake"?"scale(1.4)":"scale(1.3)")}}><ProductIcon p={selProd} big={true}/></div>
               <h2 style={{fontFamily:"'Fraunces',serif",fontSize:24,fontWeight:700,color:"#1e293b",marginTop:14}}>{selProd.name}</h2>
@@ -345,23 +353,25 @@ function App(){
             <div style={{padding:"18px 22px 0"}}>
               <h3 style={{fontFamily:"'Fraunces',serif",fontSize:15,fontWeight:600,color:"#1e293b",marginBottom:10}}>จำนวน</h3>
               <div style={{display:"flex",alignItems:"center",gap:16}}>
-                <button onClick={()=>setQty(Math.max(1,qty-1))} style={{width:40,height:40,borderRadius:12,border:"1.5px solid #e2e8f0",background:"#f8fafc",fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",color:"#475569"}}>−</button>
+                <button type="button" onClick={()=>setQty(q=>Math.max(1,q-1))} style={{width:40,height:40,borderRadius:12,border:"1.5px solid #e2e8f0",background:"#f8fafc",fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",color:"#475569"}}>−</button>
                 <span style={{fontSize:22,fontWeight:700,color:"#1e293b",fontFamily:"'Fraunces',serif",minWidth:30,textAlign:"center"}}>{qty}</span>
-                <button onClick={()=>setQty(qty+1)} style={{width:40,height:40,borderRadius:12,border:"1.5px solid #1565C0",background:"#EBF5FF",fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",color:"#1565C0"}}>+</button>
-              </div>
-            </div>
-            <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:480,zIndex:90}}>
-              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"12px 22px",background:"rgba(250,251,253,0.96)",backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",borderTop:"1px solid #e2e8f0"}}>
-                <div>
-                  <span style={{fontSize:11,color:"#94a3b8"}}>รวม</span>
-                  <p style={{fontSize:22,fontWeight:700,fontFamily:"'Fraunces',serif",color:"#1565C0"}}>฿{price()}</p>
-                </div>
-                <button className="add-btn" onClick={add} disabled={anim} style={{color:"#fff",border:"none",padding:"14px 28px",borderRadius:12,fontSize:15,fontWeight:600,cursor:"pointer",background:anim?"#94a3b8":"#1565C0"}}>{anim?"กำลังเพิ่ม...":"เพิ่มลงตะกร้า"}</button>
+                <button type="button" onClick={()=>setQty(q=>q+1)} style={{width:40,height:40,borderRadius:12,border:"1.5px solid #1565C0",background:"#EBF5FF",fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",color:"#1565C0"}}>+</button>
               </div>
             </div>
           </div>
         )}
       </div>
+
+      {/* Bottom add-to-cart bar — sits OUTSIDE the scroll area so it never blocks buttons */}
+      {screen==="customize"&&selProd&&(
+        <div style={{flexShrink:0,display:"flex",justifyContent:"space-between",alignItems:"center",padding:"12px 22px",background:"rgba(250,251,253,0.96)",backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",borderTop:"1px solid #e2e8f0",zIndex:90}}>
+          <div>
+            <span style={{fontSize:11,color:"#94a3b8"}}>รวม</span>
+            <p style={{fontSize:22,fontWeight:700,fontFamily:"'Fraunces',serif",color:"#1565C0"}}>฿{price()}</p>
+          </div>
+          <button className="add-btn" onClick={add} disabled={anim} style={{color:"#fff",border:"none",padding:"14px 28px",borderRadius:12,fontSize:15,fontWeight:600,cursor:"pointer",background:anim?"#94a3b8":"#1565C0"}}>{anim?"กำลังเพิ่ม...":"เพิ่มลงตะกร้า"}</button>
+        </div>
+      )}
 
       {cartOpen&&<div onClick={()=>setCartOpen(false)} style={{position:"absolute",inset:0,background:"rgba(21,101,192,0.18)",zIndex:200}}/>}
       <div className="cart-drawer" style={{position:"absolute",top:0,right:0,bottom:0,width:"min(380px,92%)",background:"#fff",zIndex:300,display:"flex",flexDirection:"column",boxShadow:"-8px 0 40px rgba(21,101,192,0.12)",transform:cartOpen?"translateX(0)":"translateX(100%)"}}>
@@ -377,14 +387,19 @@ function App(){
           <div className="scroll-area" style={{flex:1,overflowY:"auto",padding:"10px 18px"}}>
             {cart.map((item,i)=>(
               <div key={item.cid} className="cart-item-enter" style={{display:"flex",alignItems:"center",padding:"12px 0",borderBottom:"1px solid #f1f5f9",animationDelay:i*.05+"s",gap:8}}>
-                <div style={{width:36,height:36,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center"}}><ProductIcon p={item.prod}/></div>
+                <div style={{width:44,height:44,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",overflow:"hidden",borderRadius:8,background:"#f8fafc"}}><ProductIcon p={item.prod} small={true}/></div>
                 <div style={{flex:1}}>
                   <strong style={{fontFamily:"'Fraunces',serif",fontWeight:600,fontSize:13,color:"#1e293b"}}>{item.prod.name}</strong>
-                  <p style={{fontSize:11,color:"#94a3b8",marginTop:2}}>{item.size.name} ({item.size.weight}) × {item.qty}</p>
+                  <p style={{fontSize:11,color:"#94a3b8",marginTop:2}}>{item.size.name} ({item.size.weight})</p>
+                  <div style={{display:"flex",alignItems:"center",gap:10,marginTop:6}}>
+                    <button type="button" onClick={()=>changeQty(item.cid,-1)} style={{width:26,height:26,borderRadius:8,border:"1.5px solid #e2e8f0",background:"#f8fafc",fontSize:15,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",color:"#475569"}}>−</button>
+                    <span style={{fontSize:14,fontWeight:700,color:"#1e293b",minWidth:20,textAlign:"center"}}>{item.qty}</span>
+                    <button type="button" onClick={()=>changeQty(item.cid,1)} style={{width:26,height:26,borderRadius:8,border:"1.5px solid #1565C0",background:"#EBF5FF",fontSize:15,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",color:"#1565C0"}}>+</button>
+                  </div>
                 </div>
-                <div style={{display:"flex",alignItems:"center",gap:8}}>
-                  <span style={{fontWeight:600,color:"#1e293b",fontSize:14}}>฿{item.price}</span>
+                <div style={{display:"flex",flexDirection:"column",alignItems:"flex-end",gap:8}}>
                   <button className="remove-btn" onClick={()=>remove(item.cid)} style={{background:"#fef2f2",border:"none",color:"#ef4444",width:24,height:24,borderRadius:7,cursor:"pointer",fontSize:11,display:"flex",alignItems:"center",justifyContent:"center"}}>✕</button>
+                  <span style={{fontWeight:600,color:"#1e293b",fontSize:14}}>฿{item.price}</span>
                 </div>
               </div>
             ))}
